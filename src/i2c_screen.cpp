@@ -38,7 +38,7 @@ void i2cScreen::tempStatsScreen(void) {
 void i2cScreen::outputScreen(void) {
     //  ================
     // |FAN:100% FIN   W|
-    // |ST:350C  T:10:30|
+    // |SP:350C  T:10:30|
     //  ================
     int secs;
     lcd->clear();
@@ -57,9 +57,9 @@ void i2cScreen::outputScreen(void) {
     lcd->setCursor(16, 0);
     lcd->write(wifiEnabled ? 1 : 0);
     lcd->setCursor(0, 1);
-    lcd->print("ST:");
+    lcd->print("SP:");
     lcd->setCursor(3, 1);
-    lcd->print(ST, 0);
+    lcd->print(SP, 0);
     lcd->print(isCelsius ? "C":"F");
     lcd->setCursor(9, 1);
     lcd->print("D:");

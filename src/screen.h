@@ -17,7 +17,7 @@ class Screen {
         virtual void doRefresh(void) = 0;
     protected:
         bool wifiEnabled = false;
-        double ET, BT, ST, ROR = 0;
+        double ET, BT, SP, ROR = 0;
         unsigned int fanDutyCycle, RINT = 0;
         unsigned long roastDuration = 0;
         roastStates roastStatus = STOPPED;
@@ -30,7 +30,7 @@ class Screen {
         void setWIFIStatus(bool enabled);
         void setET(double temp);
         void setBT(double temp);
-        void setST(double temp);
+        void setSP(double temp);
         void setFAN(unsigned int dutyCycle);
         void setROR(double ror);
         void setRINT(unsigned int rorInterval);

@@ -25,8 +25,8 @@ void Screen::setBT(double temp) {
     BT = temp;
 }
 
-void Screen::setST(double temp) {
-    ST = temp;
+void Screen::setSP(double temp) {
+    SP = temp;
 }
 
 void Screen::setFAN(unsigned int dutyCycle) {
