@@ -9,6 +9,10 @@ void RoastManager::addBeanTempFunc(double(*func)(void)) {
     p_beanTemp = func;
 }
 
+void RoastManager::addSetpointTempFunc(double(*func)(void)) {
+    p_setpointTemp = func;
+}
+
 void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
     p_roastEnabled = func;
 }
@@ -35,6 +39,7 @@ void RoastManager::updateRoastState(void) {
 void RoastManager::refreshScreen(void) {
     p_screen->setET(roastState.getET());
     p_screen->setBT(roastState.getBT());
+    p_screen->setSP(roastState.getSP());
     p_screen->setROR(roastState.getROR());
     p_screen->setRINT(roastState.getRORInterval());
     p_screen->setDuration(roastState.getRoastTime());
@@ -47,6 +52,9 @@ void RoastManager::tick(void) {
     }
     if (p_beanTemp) {
         roastState.setBT(p_beanTemp());
+    }
+    if (p_setpointTemp) {
+        roastState.setSP(p_setpointTemp());
     }
     updateRoastState();
     if (p_screen) {

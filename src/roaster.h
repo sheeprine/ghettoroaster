@@ -8,11 +8,9 @@
 
 class Roaster {
     private:
-        unsigned long roastStart = 0;
-        double ET, BT = 0;
-        double ROR, ROR_BT = 0;
         unsigned int RORInterval = DEFAULT_ROR_INTERVAL;
-        unsigned long nextROR = 0;
+        unsigned long roastStart, nextROR = 0;
+        double ET, BT, SP, ROR, ROR_BT = 0;
         void updateROR();
     public:
         Roaster() {};
@@ -24,6 +22,8 @@ class Roaster {
         void setET(double newET);
         double getBT();
         void setBT(double newBT);
+        double getSP();
+        void setSP(double newSP);
         unsigned long getRoastTime();
         double getROR();
         unsigned int getRORInterval();

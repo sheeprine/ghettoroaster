@@ -13,6 +13,7 @@ class RoastManager {
         bool autoCool = true;
         double(*p_envTemp)(void) = NULL;
         double(*p_beanTemp)(void) = NULL;
+        double(*p_setpointTemp)(void) = NULL;
         bool(*p_roastEnabled)(void) = NULL;
         void updateRoastState(void);
         void refreshScreen(void);
@@ -20,6 +21,7 @@ class RoastManager {
         RoastManager() {};
         void addEnvTempFunc(double(*func)(void));
         void addBeanTempFunc(double(*func)(void));
+        void addSetpointTempFunc(double(*func)(void));
         void addRoastEnabledFunc(bool(*func)(void));
         void addScreen(Screen *screen);
         void tick(void);

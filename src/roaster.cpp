@@ -36,6 +36,14 @@ void Roaster::setBT(double newBT) {
     updateROR();
 }
 
+double Roaster::getSP() {
+    return SP;
+}
+
+void Roaster::setSP(double newSP) {
+    SP = newSP;
+}
+
 unsigned long Roaster::getRoastTime() {
     return (millis() - roastStart) / 1000;
 }
