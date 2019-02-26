@@ -16,6 +16,9 @@
 // Modbus over TCP
 #include <ModbusIP_ESP8266.h>
 
+// WiFi configuration manager
+#include <WiFiManager.h>
+
 #include "config.h"
 #include "i2c_screen.h"
 #include "roastmanager.h"
@@ -31,6 +34,7 @@ double getBTTemp(void);
 void initMAX6675(void);
 void initModbus(void);
 void initRoaster(void);
+void config(void);
 void setup(void);
 
 // Main loop

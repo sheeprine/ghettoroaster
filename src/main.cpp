@@ -50,7 +50,13 @@ void initRoaster(void) {
     roast.addScreen(&screen);
 }
 
+void config(void) {
+    WiFiManager wManager;
+    wManager.autoConnect("GhettoRoaster", "gimmecoffee");
+}
+
 void setup(void) {
+    config();
     // Map to 0-100%
     analogWriteRange(100);
     initMAX6675();
