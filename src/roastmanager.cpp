@@ -33,6 +33,12 @@ void RoastManager::addScreen(Screen *screen) {
     p_screen = screen;
 }
 
+Roaster *RoastManager::getRoasterState(void) {
+    // FIXME(sheeprine): We shouldn't expose internal roaster state. But for
+    // the moment it's convenient.
+    return &roasterState;
+}
+
 void RoastManager::updateRoasterState(void) {
     bool roastWantedState = p_roastEnabled();
     if (roasterState.isRoasting() != roastWantedState) {

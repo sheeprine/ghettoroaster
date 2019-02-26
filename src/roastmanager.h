@@ -30,6 +30,7 @@ class RoastManager {
         void addHeaterEnabledFunc(void(*func)(bool));
         void addRoastEnabledFunc(bool(*func)(void));
         void addScreen(Screen *screen);
+        Roaster *getRoasterState(void);
         void tick(void);
 };
 
