@@ -23,7 +23,7 @@ class Screen {
         roastStates roastStatus = STOPPED;
         bool isCelsius = true;
     public:
-        virtual ~Screen();
+        virtual ~Screen() {};
         void setRoastStatus(roastStates status);
         void useCelsius(void);
         void useFarhenheit(void);
