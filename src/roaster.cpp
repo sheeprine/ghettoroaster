@@ -52,6 +52,12 @@ void Roaster::setFan(unsigned int newFan) {
     fanDutyCycle = newFan > 100 ? 100 : newFan;
 }
 
+bool Roaster::isHeaterEnabled() {
+    //TODO(sheeprine): Placeholder for PID control, keeping it off for security
+    //reasons.
+    return false;
+}
+
 unsigned long Roaster::getRoastTime() {
     return (millis() - roastStart) / 1000;
 }

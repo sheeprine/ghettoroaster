@@ -21,6 +21,10 @@ void RoastManager::addFanSetDutyFunc(void(*func)(unsigned int)) {
     p_fanSetDuty = func;
 }
 
+void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {
+    p_heaterEnabled = func;
+}
+
 void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
     p_roastEnabled = func;
 }
@@ -68,6 +72,9 @@ void RoastManager::tick(void) {
     updateRoastState();
     if (p_fanDuty) {
         roastState.setFan(p_fanDuty());
+    }
+    if (p_heaterEnabled) {
+        p_heaterEnabled(roastState.isHeaterEnabled());
     }
     if (p_screen) {
         refreshScreen();

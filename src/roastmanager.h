@@ -16,6 +16,7 @@ class RoastManager {
         double(*p_setpointTemp)(void) = NULL;
         unsigned int(*p_fanDuty)(void) = NULL;
         void(*p_fanSetDuty)(unsigned int) = NULL;
+        void(*p_heaterEnabled)(bool) = NULL;
         bool(*p_roastEnabled)(void) = NULL;
         void updateRoastState(void);
         void refreshScreen(void);
@@ -26,6 +27,7 @@ class RoastManager {
         void addSetpointTempFunc(double(*func)(void));
         void addFanDutyFunc(unsigned int(*func)(void));
         void addFanSetDutyFunc(void(*func)(unsigned int));
+        void addHeaterEnabledFunc(void(*func)(bool));
         void addRoastEnabledFunc(bool(*func)(void));
         void addScreen(Screen *screen);
         void tick(void);

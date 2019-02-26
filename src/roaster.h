@@ -27,6 +27,7 @@ class Roaster {
         void setSP(double newSP);
         unsigned int getFan();
         void setFan(unsigned int newFan);
+        bool isHeaterEnabled();
         unsigned long getRoastTime();
         double getROR();
         unsigned int getRORInterval();
