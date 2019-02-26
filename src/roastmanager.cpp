@@ -33,13 +33,13 @@ void RoastManager::addScreen(Screen *screen) {
     p_screen = screen;
 }
 
-void RoastManager::updateRoastState(void) {
+void RoastManager::updateRoasterState(void) {
     bool roastWantedState = p_roastEnabled();
-    if (roastState.isRoasting() != roastWantedState) {
+    if (roasterState.isRoasting() != roastWantedState) {
         if (roastWantedState) {
-            roastState.startRoast();
+            roasterState.startRoast();
         } else {
-            roastState.stopRoast();
+            roasterState.stopRoast();
             if (autoCool) {
                 // TODO(sheeprine): Set FAN to MAX to lower temp as a security
                 // measure.
@@ -49,32 +49,32 @@ void RoastManager::updateRoastState(void) {
 }
 
 void RoastManager::refreshScreen(void) {
-    p_screen->setET(roastState.getET());
-    p_screen->setBT(roastState.getBT());
-    p_screen->setSP(roastState.getSP());
-    p_screen->setFan(roastState.getFan());
-    p_screen->setROR(roastState.getROR());
-    p_screen->setRINT(roastState.getRORInterval());
-    p_screen->setDuration(roastState.getRoastTime());
+    p_screen->setET(roasterState.getET());
+    p_screen->setBT(roasterState.getBT());
+    p_screen->setSP(roasterState.getSP());
+    p_screen->setFan(roasterState.getFan());
+    p_screen->setROR(roasterState.getROR());
+    p_screen->setRINT(roasterState.getRORInterval());
+    p_screen->setDuration(roasterState.getRoastTime());
     p_screen->refresh();
 }
 
 void RoastManager::tick(void) {
     if (p_envTemp) {
-        roastState.setET(p_envTemp());
+        roasterState.setET(p_envTemp());
     }
     if (p_beanTemp) {
-        roastState.setBT(p_beanTemp());
+        roasterState.setBT(p_beanTemp());
     }
     if (p_setpointTemp) {
-        roastState.setSP(p_setpointTemp());
+        roasterState.setSP(p_setpointTemp());
     }
-    updateRoastState();
+    updateRoasterState();
     if (p_fanDuty) {
-        roastState.setFan(p_fanDuty());
+        roasterState.setFan(p_fanDuty());
     }
     if (p_heaterEnabled) {
-        p_heaterEnabled(roastState.isHeaterEnabled());
+        p_heaterEnabled(roasterState.isHeaterEnabled());
     }
     if (p_screen) {
         refreshScreen();

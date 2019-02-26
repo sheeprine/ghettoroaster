@@ -8,7 +8,7 @@
 
 class RoastManager {
     private:
-        Roaster roastState;
+        Roaster roasterState;
         Screen *p_screen = NULL;
         bool autoCool = true;
         double(*p_envTemp)(void) = NULL;
@@ -18,7 +18,7 @@ class RoastManager {
         void(*p_fanSetDuty)(unsigned int) = NULL;
         void(*p_heaterEnabled)(bool) = NULL;
         bool(*p_roastEnabled)(void) = NULL;
-        void updateRoastState(void);
+        void updateRoasterState(void);
         void refreshScreen(void);
     public:
         RoastManager() {};
