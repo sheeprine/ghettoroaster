@@ -13,6 +13,10 @@ void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
     p_roastEnabled = func;
 }
 
+void RoastManager::addScreen(Screen *screen) {
+    p_screen = screen;
+}
+
 void RoastManager::updateRoastState(void) {
     bool roastWantedState = p_roastEnabled();
     if (roastState.isRoasting() != roastWantedState) {
@@ -28,6 +32,15 @@ void RoastManager::updateRoastState(void) {
     }
 }
 
+void RoastManager::refreshScreen(void) {
+    p_screen->setET(roastState.getET());
+    p_screen->setBT(roastState.getBT());
+    p_screen->setROR(roastState.getROR());
+    p_screen->setRINT(roastState.getRORInterval());
+    p_screen->setDuration(roastState.getRoastTime());
+    p_screen->refresh();
+}
+
 void RoastManager::tick(void) {
     if (p_envTemp) {
         roastState.setET(p_envTemp());
@@ -36,4 +49,7 @@ void RoastManager::tick(void) {
         roastState.setBT(p_beanTemp());
     }
     updateRoastState();
+    if (p_screen) {
+        refreshScreen();
+    }
 }
