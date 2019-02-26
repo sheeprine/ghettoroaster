@@ -13,6 +13,14 @@ void RoastManager::addSetpointTempFunc(double(*func)(void)) {
     p_setpointTemp = func;
 }
 
+void RoastManager::addFanDutyFunc(unsigned int(*func)(void)) {
+    p_fanDuty = func;
+}
+
+void RoastManager::addFanSetDutyFunc(void(*func)(unsigned int)) {
+    p_fanSetDuty = func;
+}
+
 void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
     p_roastEnabled = func;
 }
@@ -40,6 +48,7 @@ void RoastManager::refreshScreen(void) {
     p_screen->setET(roastState.getET());
     p_screen->setBT(roastState.getBT());
     p_screen->setSP(roastState.getSP());
+    p_screen->setFan(roastState.getFan());
     p_screen->setROR(roastState.getROR());
     p_screen->setRINT(roastState.getRORInterval());
     p_screen->setDuration(roastState.getRoastTime());
@@ -57,6 +66,9 @@ void RoastManager::tick(void) {
         roastState.setSP(p_setpointTemp());
     }
     updateRoastState();
+    if (p_fanDuty) {
+        roastState.setFan(p_fanDuty());
+    }
     if (p_screen) {
         refreshScreen();
     }

@@ -9,6 +9,7 @@
 class Roaster {
     private:
         unsigned int RORInterval = DEFAULT_ROR_INTERVAL;
+        unsigned int fanDutyCycle = 0;
         unsigned long roastStart, nextROR = 0;
         double ET, BT, SP, ROR, ROR_BT = 0;
         void updateROR();
@@ -24,6 +25,8 @@ class Roaster {
         void setBT(double newBT);
         double getSP();
         void setSP(double newSP);
+        unsigned int getFan();
+        void setFan(unsigned int newFan);
         unsigned long getRoastTime();
         double getROR();
         unsigned int getRORInterval();

@@ -44,6 +44,14 @@ void Roaster::setSP(double newSP) {
     SP = newSP;
 }
 
+unsigned int Roaster::getFan() {
+    return fanDutyCycle;
+}
+
+void Roaster::setFan(unsigned int newFan) {
+    fanDutyCycle = newFan > 100 ? 100 : newFan;
+}
+
 unsigned long Roaster::getRoastTime() {
     return (millis() - roastStart) / 1000;
 }
