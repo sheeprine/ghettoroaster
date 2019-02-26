@@ -4,6 +4,7 @@
 enum roastStates {
     STOPPED = 0,
     DRY,
+    TP,
     FC,
     FCE,
     SC,

@@ -48,11 +48,25 @@ void i2cScreen::outputScreen(void) {
     lcd->print(fanDutyCycle);
     lcd->print("%");
     lcd->setCursor(9, 0);
-    // TODO(sheeprine): Add current state of the roast
-    if (roastStatus == STOPPED) {
-        lcd->print("STOP");
-    } else {
-        lcd->print("ROAST");
+    switch(roastStatus) {
+        case DRY:
+            lcd->print("DRY");
+            break;
+        case TP:
+        case MAILL:
+            lcd->print("MAILL");
+            break;
+        case FC:
+        case FCE:
+        case SC:
+        case FIN:
+            lcd->print("FIN");
+            break;
+        case DROP:
+            lcd->print("DROP");
+            break;
+        default:
+            lcd->print("STOP");
     }
     lcd->setCursor(16, 0);
     lcd->write(wifiEnabled ? 1 : 0);
