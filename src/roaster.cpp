@@ -1,15 +1,7 @@
 #include "roaster.h"
 
 
-Roaster::Roaster() {
-    ET = 0;
-    BT = 0;
-    ROR = 0;
-    RORInterval = DEFAULT_ROR_INTERVAL;
-}
-
 Roaster::Roaster(unsigned int rorInterval) {
-    Roaster();
     RORInterval = rorInterval;
 }
 

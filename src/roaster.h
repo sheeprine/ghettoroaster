@@ -8,14 +8,14 @@
 
 class Roaster {
     private:
-        unsigned long roastStart;
-        double ET, BT;
-        double ROR, ROR_BT;
-        unsigned int RORInterval;
-        unsigned long nextROR;
+        unsigned long roastStart = 0;
+        double ET, BT = 0;
+        double ROR, ROR_BT = 0;
+        unsigned int RORInterval = DEFAULT_ROR_INTERVAL;
+        unsigned long nextROR = 0;
         void updateROR();
     public:
-        Roaster();
+        Roaster() {};
         Roaster(unsigned int rorInterval);
         void startRoast();
         void stopRoast();
