@@ -29,7 +29,7 @@ void Screen::setSP(double temp) {
     SP = temp;
 }
 
-void Screen::setFAN(unsigned int dutyCycle) {
+void Screen::setFan(unsigned int dutyCycle) {
     fanDutyCycle = dutyCycle;
 }
 

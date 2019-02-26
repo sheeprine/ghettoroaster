@@ -31,7 +31,7 @@ class Screen {
         void setET(double temp);
         void setBT(double temp);
         void setSP(double temp);
-        void setFAN(unsigned int dutyCycle);
+        void setFan(unsigned int dutyCycle);
         void setROR(double ror);
         void setRINT(unsigned int rorInterval);
         void setDuration(unsigned long duration);
