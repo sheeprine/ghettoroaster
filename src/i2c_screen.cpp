@@ -92,8 +92,8 @@ void i2cScreen::outputScreen(void) {
 }
 
 void i2cScreen::doRefresh(void) {
-    bool isOdd = int(roastDuration) & 1;
-    if (roastStatus != STOPPED && isOdd) {
+    bool isInterval = roastDuration/3 & 1;
+    if (roastStatus != STOPPED && isInterval) {
         if (!onStats)
             lcd->clear();
         onStats = true;
