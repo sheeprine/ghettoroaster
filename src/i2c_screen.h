@@ -31,6 +31,7 @@ const char noWIFI[8] = {
 
 class i2cScreen : public Screen {
     private:
+        bool onStats;
         LiquidCrystal_I2C *lcd = NULL;
         void tempStatsScreen(void);
         void outputScreen(void);
