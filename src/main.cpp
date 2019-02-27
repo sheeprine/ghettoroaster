@@ -52,7 +52,12 @@ void initRoaster(void) {
 
 void config(void) {
     WiFiManager wManager;
+    lcd.setCursor(0, 0);
+    lcd.print("      WiFi     ");
+    lcd.setCursor(0, 1);
+    lcd.print(" not configured ");
     wManager.autoConnect("GhettoRoaster", "gimmecoffee");
+    lcd.clear();
 }
 
 void setup(void) {
