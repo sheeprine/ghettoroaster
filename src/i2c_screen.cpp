@@ -40,7 +40,7 @@ void i2cScreen::outputScreen(void) {
     // |FAN:100% FIN   W|
     // |SP:350C  T:10:30|
     //  ================
-    int secs;
+    int mins, secs;
     lcd->clear();
     lcd->setCursor(0, 0);
     lcd->print("FAN:");
@@ -78,7 +78,11 @@ void i2cScreen::outputScreen(void) {
     lcd->setCursor(9, 1);
     lcd->print("D:");
     lcd->setCursor(11, 1);
-    lcd->print(roastDuration/60);
+    mins = roastDuration/60;
+    if (mins < 10) {
+        lcd->print("0");
+    }
+    lcd->print(mins);
     lcd->print(":");
     secs = roastDuration%60;
     if (secs < 10) {
