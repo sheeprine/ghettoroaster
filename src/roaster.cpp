@@ -59,7 +59,9 @@ bool Roaster::isHeaterEnabled() {
 }
 
 unsigned long Roaster::getRoastTime() {
-    return (millis() - roastStart) / 1000;
+    if (roastStart)
+        return (millis() - roastStart) / 1000;
+    return 0;
 }
 
 void Roaster::updateROR() {
