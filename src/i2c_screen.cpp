@@ -9,10 +9,10 @@ i2cScreen::i2cScreen(LiquidCrystal_I2C *i2cLCD) {
 }
 
 void i2cScreen::tempStatsScreen(void) {
-    //  ================
-    // |ET:300C ROR:30.1|
-    // |BT:300C RINT:60s|
-    //  ================
+    //  =================
+    // |ET:300C  ROR:30.1|
+    // |BT:300C  RINT:60s|
+    //  =================
     lcd->setCursor(0, 0);
     lcd->print("ET:    ");
     lcd->setCursor(3, 0);
@@ -35,10 +35,10 @@ void i2cScreen::tempStatsScreen(void) {
 }
 
 void i2cScreen::outputScreen(void) {
-    //  ================
-    // |FAN:100% FIN   W|
-    // |SP:350C  T:10:30|
-    //  ================
+    //  =================
+    // |FAN:100%  FIN   W|
+    // |SP:350C   D:10:30|
+    //  =================
     int mins, secs;
     lcd->setCursor(0, 0);
     lcd->print("FAN:   ");
