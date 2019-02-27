@@ -11,8 +11,8 @@ void Roaster::startRoast() {
 }
 
 void Roaster::stopRoast() {
-    roastStart = millis();
-    nextROR = roastStart + RORInterval;
+    roastStart = 0;
+    nextROR = 0;
 }
 
 bool Roaster::isRoasting() {
