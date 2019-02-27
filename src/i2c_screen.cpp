@@ -14,24 +14,24 @@ void i2cScreen::tempStatsScreen(void) {
     // |BT:300C  RINT:60s|
     //  =================
     lcd->setCursor(0, 0);
-    lcd->print("ET:    ");
-    lcd->setCursor(3, 0);
+    lcd->print("ET:");
     lcd->print(ET, 0);
     lcd->print(isCelsius ? "C":"F");
+    lcd->print("  ");
     lcd->setCursor(8, 0);
-    lcd->print("ROR:    ");
-    lcd->setCursor(12, 0);
+    lcd->print("ROR:");
     lcd->print(ROR, 1);
+    lcd->print(" ");
     lcd->setCursor(0, 1);
-    lcd->print("BT:    ");
-    lcd->setCursor(3, 1);
+    lcd->print("BT:");
     lcd->print(BT, 0);
     lcd->print(isCelsius ? "C":"F");
+    lcd->print("  ");
     lcd->setCursor(8, 1);
-    lcd->print("RINT:   ");
-    lcd->setCursor(13, 1);
+    lcd->print("RINT:");
     lcd->print(RINT);
     lcd->print("s");
+    lcd->print(" ");
 }
 
 void i2cScreen::outputScreen(void) {
@@ -41,12 +41,10 @@ void i2cScreen::outputScreen(void) {
     //  =================
     int mins, secs;
     lcd->setCursor(0, 0);
-    lcd->print("FAN:   ");
-    lcd->setCursor(4, 0);
+    lcd->print("FAN:");
     lcd->print(fanDutyCycle);
     lcd->print("%");
-    lcd->setCursor(9, 0);
-    lcd->print("      ");
+    lcd->print("  ");
     lcd->setCursor(9, 0);
     switch(roastStatus) {
         case DRY:
@@ -68,16 +66,16 @@ void i2cScreen::outputScreen(void) {
         default:
             lcd->print("STOP");
     }
+    lcd->print("  ");
     lcd->setCursor(15, 0);
     lcd->write(wifiEnabled ? 1 : 0);
     lcd->setCursor(0, 1);
-    lcd->print("SP:    ");
-    lcd->setCursor(3, 1);
+    lcd->print("SP:");
     lcd->print(SP, 0);
     lcd->print(isCelsius ? "C":"F");
+    lcd->print("  ");
     lcd->setCursor(9, 1);
-    lcd->print("D:     ");
-    lcd->setCursor(11, 1);
+    lcd->print("D:");
     mins = roastDuration/60;
     if (mins < 10) {
         lcd->print("0");
