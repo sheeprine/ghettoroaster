@@ -68,7 +68,7 @@ void i2cScreen::outputScreen(void) {
         default:
             lcd->print("STOP");
     }
-    lcd->setCursor(16, 0);
+    lcd->setCursor(15, 0);
     lcd->write(wifiEnabled ? 1 : 0);
     lcd->setCursor(0, 1);
     lcd->print("SP:");
