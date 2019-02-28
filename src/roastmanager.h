@@ -8,6 +8,8 @@
 
 class RoastManager {
     private:
+        unsigned int refreshInterval = 500;
+        unsigned long lastRefresh = 0;
         Roaster roasterState;
         Screen *p_screen = NULL;
         bool autoCool = true;
@@ -30,6 +32,7 @@ class RoastManager {
         void addHeaterEnabledFunc(void(*func)(bool));
         void addRoastEnabledFunc(bool(*func)(void));
         void addScreen(Screen *screen);
+        void setRefreshInterval(unsigned int interval);
         Roaster *getRoasterState(void);
         void tick(void);
 };

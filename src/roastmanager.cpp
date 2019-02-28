@@ -39,6 +39,10 @@ Roaster *RoastManager::getRoasterState(void) {
     return &roasterState;
 }
 
+void RoastManager::setRefreshInterval(unsigned int interval) {
+    refreshInterval = interval;
+}
+
 void RoastManager::updateRoasterState(void) {
     bool roastWantedState = p_roastEnabled();
     if (roasterState.isRoasting() != roastWantedState) {
@@ -67,14 +71,17 @@ void RoastManager::refreshScreen(void) {
 }
 
 void RoastManager::tick(void) {
-    if (p_envTemp) {
-        roasterState.setET(p_envTemp());
-    }
-    if (p_beanTemp) {
-        roasterState.setBT(p_beanTemp());
-    }
-    if (p_setpointTemp) {
-        roasterState.setSP(p_setpointTemp());
+    if (millis() - lastRefresh > refreshInterval) {
+        if (p_envTemp) {
+            roasterState.setET(p_envTemp());
+        }
+        if (p_beanTemp) {
+            roasterState.setBT(p_beanTemp());
+        }
+        if (p_setpointTemp) {
+            roasterState.setSP(p_setpointTemp());
+        }
+        lastRefresh = millis();
     }
     updateRoasterState();
     if (p_fanDuty) {
