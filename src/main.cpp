@@ -76,7 +76,7 @@ void populateModbusRegisters(void) {
 }
 
 void loop(void) {
-    screen.setWIFIStatus(WiFi.isConnected());
+    screen.setWIFIStatus(WiFi.status() == WL_CONNECTED);
     roast.tick();
     populateModbusRegisters();
     mb.task();
