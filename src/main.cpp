@@ -70,9 +70,9 @@ void setup(void) {
 }
 
 void populateModbusRegisters(void) {
-    mb.Ireg(ROAST_ET_ADDR, roasterState->getET());
-    mb.Ireg(ROAST_BT_ADDR, roasterState->getBT());
-    mb.Ireg(ROAST_ROR_ADDR, roasterState->getROR());
+    mb.Ireg(ROAST_ET_ADDR, (unsigned int)(roasterState->getET()*10));
+    mb.Ireg(ROAST_BT_ADDR, (unsigned int)(roasterState->getBT()*10));
+    mb.Ireg(ROAST_ROR_ADDR, (unsigned int)(roasterState->getROR()*10));
 }
 
 void loop(void) {
