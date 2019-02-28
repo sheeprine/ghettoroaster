@@ -5,8 +5,8 @@
 #define REFRESH_RATE 10
 
 // Fan and heat control
-#define FAN_PWN_PIN D0
-#define HEATER_PIN D1
+#define FAN_PWN_PIN A0
+#define HEATER_PIN D0
 
 // Thermocouples CS Pins
 #define TC_ET_PIN D3
