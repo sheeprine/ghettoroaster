@@ -8,30 +8,30 @@ i2cScreen::i2cScreen(LiquidCrystal_I2C *i2cLCD) {
     lcd->createChar(1, WIFI);
 }
 
+unsigned int i2cScreen::doubleLen(double num) {
+    if (num >= 100)
+        return 3;
+    if (num >= 10)
+        return 2;
+    return 1;
+}
+
 void i2cScreen::tempStatsScreen(void) {
     //  =================
     // |ET:300C  ROR:30.1|
     // |BT:300C  RINT:60s|
     //  =================
+    const char sign = isCelsius ? 'C':'F';
+    sprintf(tempStatsScreenBuffer[0], "ET:%.0f%-*c  ROR:%-*.1f",
+            ET, 4-doubleLen(ET), sign,
+            4-doubleLen(ROR), ROR);
+    sprintf(tempStatsScreenBuffer[1], "BT:%.0f%-*c  RINT:%ds",
+            BT, 4-doubleLen(BT), sign,
+            RINT);
     lcd->setCursor(0, 0);
-    lcd->print("ET:");
-    lcd->print(ET, 0);
-    lcd->print(isCelsius ? "C":"F");
-    lcd->print("  ");
-    lcd->setCursor(8, 0);
-    lcd->print("ROR:");
-    lcd->print(ROR, 1);
-    lcd->print(" ");
+    lcd->print(tempStatsScreenBuffer[0]);
     lcd->setCursor(0, 1);
-    lcd->print("BT:");
-    lcd->print(BT, 0);
-    lcd->print(isCelsius ? "C":"F");
-    lcd->print("  ");
-    lcd->setCursor(8, 1);
-    lcd->print("RINT:");
-    lcd->print(RINT);
-    lcd->print("s");
-    lcd->print(" ");
+    lcd->print(tempStatsScreenBuffer[1]);
 }
 
 void i2cScreen::outputScreen(void) {
@@ -39,67 +39,28 @@ void i2cScreen::outputScreen(void) {
     // |FAN:100%  FIN   W|
     // |SP:350C   D:10:30|
     //  =================
-    int mins, secs;
+    div_t time = div(roastDuration, 60);
+    const char sign = isCelsius ? 'C':'F';
+    const char *stateStr = roastStatesStr(roastStatus);
+    sprintf(outputScreenBuffer[0], "FAN:%d%-*c%-*s",
+            fanDutyCycle, 5-doubleLen(fanDutyCycle), '%',
+            11 - strlen(stateStr), stateStr);
+    sprintf(outputScreenBuffer[1], "SP:%.0f%-*cD:%02d:%02d",
+            SP, 6-doubleLen(SP), sign,
+            time.quot, time.rem);
     lcd->setCursor(0, 0);
-    lcd->print("FAN:");
-    lcd->print(fanDutyCycle);
-    lcd->print("%");
-    lcd->print("  ");
-    lcd->setCursor(9, 0);
-    switch(roastStatus) {
-        case DRY:
-            lcd->print("DRY");
-            break;
-        case TP:
-        case MAILL:
-            lcd->print("MAILL");
-            break;
-        case FC:
-        case FCE:
-        case SC:
-        case FIN:
-            lcd->print("FIN");
-            break;
-        case DROP:
-            lcd->print("DROP");
-            break;
-        default:
-            lcd->print("STOP");
-    }
-    lcd->print("  ");
+    lcd->print(outputScreenBuffer[0]);
     lcd->setCursor(15, 0);
     lcd->write(wifiEnabled ? 1 : 0);
     lcd->setCursor(0, 1);
-    lcd->print("SP:");
-    lcd->print(SP, 0);
-    lcd->print(isCelsius ? "C":"F");
-    lcd->print("  ");
-    lcd->setCursor(9, 1);
-    lcd->print("D:");
-    mins = roastDuration/60;
-    if (mins < 10) {
-        lcd->print("0");
-    }
-    lcd->print(mins);
-    lcd->print(":");
-    secs = roastDuration%60;
-    if (secs < 10) {
-        lcd->print("0");
-    }
-    lcd->print(secs);
+    lcd->print(outputScreenBuffer[1]);
 }
 
 void i2cScreen::doRefresh(void) {
     bool isInterval = roastDuration/3 & 1;
     if (roastStatus != STOPPED && isInterval) {
-        if (!onStats)
-            lcd->clear();
-        onStats = true;
         tempStatsScreen();
     } else {
-        if (onStats)
-            lcd->clear();
-        onStats = false;
         outputScreen();
     }
 }

@@ -3,6 +3,9 @@
 
 #include "screen.h"
 
+#include <cstdio>
+#include <cstdlib>
+
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
@@ -31,8 +34,10 @@ const char noWIFI[8] = {
 
 class i2cScreen : public Screen {
     private:
-        bool onStats;
+        char tempStatsScreenBuffer[2][17];
+        char outputScreenBuffer[2][17];
         LiquidCrystal_I2C *lcd = NULL;
+        unsigned int doubleLen(double num);
         void tempStatsScreen(void);
         void outputScreen(void);
         void doRefresh(void);
