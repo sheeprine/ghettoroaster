@@ -2,6 +2,7 @@
 #define ROASTER_H
 
 #include <Arduino.h>
+#include <PID_v1.h>
 
 #define DEFAULT_ROR_INTERVAL 30000;
 
@@ -15,17 +16,21 @@ enum roastParams {
 
 class Roaster {
     private:
+        PID *pid = NULL;
         unsigned int RORInterval = DEFAULT_ROR_INTERVAL;
         unsigned int fanDutyCycle = 0;
         unsigned long roastStart, nextROR = 0;
-        double ET, BT, SP, ROR, ROR_BT = 0;
         double *RORSource;
+        double ET, BT, SP, SV, ROR, ROR_BT = 0;
+        double kp, ki, kd;
         // Conservative setting to avoid fire hazards
         unsigned short enforceFanWithHeater = 100;
         void updateROR();
     public:
         Roaster();
         Roaster(unsigned int rorInterval);
+        ~Roaster(void);
+        void initPID(void);
         void startRoast();
         void stopRoast();
         bool isRoasting();

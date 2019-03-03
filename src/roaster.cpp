@@ -1,20 +1,32 @@
 #include "roaster.h"
 
 
-Roaster::Roaster(void) {
+Roaster::Roaster(void) : kp(75), ki(25), kd(50) {
     RORSource = &BT;
+    initPID();
 }
 
 Roaster::Roaster(unsigned int rorInterval) : Roaster() {
     RORInterval = rorInterval;
 }
 
+Roaster::~Roaster(void) {
+    delete pid;
+}
+
+void Roaster::initPID() {
+    pid = new PID(&BT, &SV, &SP, kp, ki, kd, DIRECT);
+}
+
 void Roaster::startRoast() {
     roastStart = millis();
     nextROR = roastStart + RORInterval;
+    pid->SetMode(AUTOMATIC);
 }
 
 void Roaster::stopRoast() {
+    pid->SetMode(MANUAL);
+    SV = 0;
     roastStart = 0;
     nextROR = 0;
 }
@@ -62,9 +74,10 @@ void Roaster::setFan(unsigned int newFan) {
 }
 
 bool Roaster::isHeaterEnabled() {
-    //TODO(sheeprine): Placeholder for PID control, keeping it off for security
-    //reasons.
-    return false;
+    // FIXME(sheeprine): Using a threshold on the PID output as PWM is
+    // inefficient on Zero Cross SSR. We should implement something more robust
+    // and customizable.
+    return SV > 150;
 }
 
 unsigned long Roaster::getRoastTime() {
@@ -95,4 +108,5 @@ void Roaster::setRORSource(roastParams sourceType) {
 
 void Roaster::update() {
     updateROR();
+    pid->Compute();
 }
