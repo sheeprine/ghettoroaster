@@ -1,6 +1,25 @@
 #include "screen.h"
 
 
+const char* Screen::roastStatesStr(roastStates state) {
+    switch(roastStatus) {
+        case DRY:
+            return "DRY";
+        case TP:
+        case MAILL:
+            return "MAILL";
+        case FC:
+        case FCE:
+        case SC:
+        case FIN:
+            return "FIN";
+        case DROP:
+            return "DROP";
+        default:
+            return "STOP";
+    }
+}
+
 void Screen::setRoastStatus(roastStates status) {
     roastStatus = status;
 }

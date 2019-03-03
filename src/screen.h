@@ -18,11 +18,12 @@ class Screen {
         virtual void doRefresh(void) = 0;
     protected:
         bool wifiEnabled = false;
+        bool isCelsius = true;
         double ET, BT, SP, ROR = 0;
         unsigned int fanDutyCycle, RINT = 0;
         unsigned long roastDuration = 0;
         roastStates roastStatus = STOPPED;
-        bool isCelsius = true;
+        const char* roastStatesStr(roastStates state);
     public:
         virtual ~Screen() {};
         void setRoastStatus(roastStates status);
