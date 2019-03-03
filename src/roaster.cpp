@@ -1,7 +1,11 @@
 #include "roaster.h"
 
 
-Roaster::Roaster(unsigned int rorInterval) {
+Roaster::Roaster(void) {
+    RORSource = &BT;
+}
+
+Roaster::Roaster(unsigned int rorInterval) : Roaster() {
     RORInterval = rorInterval;
 }
 
@@ -33,7 +37,6 @@ double Roaster::getBT() {
 
 void Roaster::setBT(double newBT) {
     BT = newBT;
-    updateROR();
 }
 
 double Roaster::getSP() {
@@ -84,4 +87,12 @@ double Roaster::getROR() {
 
 unsigned int Roaster::getRORInterval() {
     return RORInterval / 1000;
+}
+
+void Roaster::setRORSource(roastParams sourceType) {
+    RORSource = &BT;
+}
+
+void Roaster::update() {
+    updateROR();
 }

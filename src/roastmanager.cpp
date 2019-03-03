@@ -93,4 +93,5 @@ void RoastManager::tick(void) {
     if (p_screen) {
         refreshScreen();
     }
+    roasterState.update();
 }
