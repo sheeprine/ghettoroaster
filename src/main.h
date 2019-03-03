@@ -8,10 +8,10 @@
 
 // LCD
 #include <LiquidCrystal_I2C.h>
-#include <SPI.h>
 
 // Thermocouple
 #include <max6675.h>
+#include <SPI.h>
 
 // Modbus over TCP
 #include <ModbusIP_ESP8266.h>

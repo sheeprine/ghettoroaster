@@ -44,7 +44,13 @@ void Roaster::setSP(double newSP) {
     SP = newSP;
 }
 
+void Roaster::setRoastingMinFanValue(unsigned int value) {
+    enforceFanWithHeater = value;
+}
+
 unsigned int Roaster::getFan() {
+    if (isHeaterEnabled() && (fanDutyCycle < enforceFanWithHeater))
+        return enforceFanWithHeater;
     return fanDutyCycle;
 }
 

@@ -12,6 +12,8 @@ class Roaster {
         unsigned int fanDutyCycle = 0;
         unsigned long roastStart, nextROR = 0;
         double ET, BT, SP, ROR, ROR_BT = 0;
+        // Conservative setting to avoid fire hazards
+        unsigned short enforceFanWithHeater = 100;
         void updateROR();
     public:
         Roaster() {};
@@ -26,6 +28,7 @@ class Roaster {
         double getSP();
         void setSP(double newSP);
         unsigned int getFan();
+        void setRoastingMinFanValue(unsigned int value);
         void setFan(unsigned int newFan);
         bool isHeaterEnabled();
         unsigned long getRoastTime();
