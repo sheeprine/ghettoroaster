@@ -52,6 +52,8 @@ void initRoaster(void) {
 
 void config(void) {
     WiFiManager wManager;
+    pinMode(HEATER_PIN, OUTPUT);
+    pinMode(FAN_PWN_PIN, OUTPUT);
     lcd.setCursor(0, 0);
     lcd.print("      WiFi     ");
     lcd.setCursor(0, 1);
