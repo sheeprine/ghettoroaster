@@ -18,27 +18,11 @@ void registerUpdateCallback(void (*func)(void)) {
     updateCallbacks.push_front(func);
 }
 
-void setFan(unsigned int dutyCycle) { analogWrite(FAN_PWN_PIN, dutyCycle); }
-void setHeater(bool enabled) { digitalWrite(HEATER_PIN, enabled); }
-
-void initRoaster(void) {
-    g_roast.addFanSetDutyFunc(setFan);
-    g_roast.addHeaterEnabledFunc(setHeater);
-}
-
-void config(void) {
-    pinMode(HEATER_PIN, OUTPUT);
-    pinMode(FAN_PWN_PIN, OUTPUT);
-}
-
 void setup(void) {
-    config();
-    // Map to 0-100%
-    analogWriteRange(100);
     register_i2c_lcd();
     register_max6675();
-    initRoaster();
     register_modbus();
+    register_controls();
     register_wifi();
     for (auto it = initCallbacks.begin(); it != initCallbacks.end(); ++it)
         (*it)();
