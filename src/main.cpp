@@ -1,8 +1,5 @@
 #include "main.h"
 
-MAX6675 TC_ET;
-MAX6675 TC_BT;
-
 RoastManager g_roast;
 Roaster *roasterState = g_roast.getRoasterState();
 // FIXME(sheeprine): Unused, will be populated at a later stage of the
@@ -21,20 +18,10 @@ void registerUpdateCallback(void (*func)(void)) {
     updateCallbacks.push_front(func);
 }
 
-double getETTemp(void) { return TC_ET.readCelsius(); }
-double getBTTemp(void) { return TC_BT.readCelsius(); }
 void setFan(unsigned int dutyCycle) { analogWrite(FAN_PWN_PIN, dutyCycle); }
 void setHeater(bool enabled) { digitalWrite(HEATER_PIN, enabled); }
 
-void initMAX6675(void) {
-    SPI.begin();
-    TC_ET.begin(TC_ET_PIN);
-    TC_BT.begin(TC_BT_PIN);
-}
-
 void initRoaster(void) {
-    g_roast.addEnvTempFunc(getETTemp);
-    g_roast.addBeanTempFunc(getBTTemp);
     g_roast.addFanSetDutyFunc(setFan);
     g_roast.addHeaterEnabledFunc(setHeater);
 }
@@ -49,7 +36,7 @@ void setup(void) {
     // Map to 0-100%
     analogWriteRange(100);
     register_i2c_lcd();
-    initMAX6675();
+    register_max6675();
     initRoaster();
     register_modbus();
     register_wifi();
