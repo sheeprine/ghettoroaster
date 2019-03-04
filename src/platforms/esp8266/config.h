@@ -20,7 +20,7 @@
 #define TC_BT_PIN D0
 
 // Fan and heat control
-#define FAN_PWN_PIN D3
+#define FAN_PWM_PIN D3
 #define HEATER_PIN D4
 
 // Modbus addresses

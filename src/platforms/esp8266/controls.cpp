@@ -4,7 +4,7 @@ extern RoastManager g_roast;
 
 void setFan(unsigned int dutyCycle) {
     // Convert to 8 bits resolution
-    analogWrite(FAN_PWN_PIN, dutyCycle*25.5);
+    analogWrite(FAN_PWM_PIN, dutyCycle*25.5);
 }
 void setHeater(bool enabled) {
     digitalWrite(HEATER_PIN, enabled);
@@ -12,7 +12,7 @@ void setHeater(bool enabled) {
 
 void initControls(void) {
     pinMode(HEATER_PIN, OUTPUT);
-    pinMode(FAN_PWN_PIN, OUTPUT);
+    pinMode(FAN_PWM_PIN, OUTPUT);
 }
 
 void addControlCallbacks(void) {
