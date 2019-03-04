@@ -20,6 +20,7 @@
 #include <WiFiManager.h>
 
 #include "config.h"
+#include "platforms/esp8266/config.h"
 #include "i2c_screen.h"
 #include "roastmanager.h"
 
