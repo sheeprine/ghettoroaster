@@ -11,6 +11,17 @@ Roaster *roasterState = g_roast.getRoasterState();
 // refactoring
 Screen *gp_screen = NULL;
 
+// Callback lists
+std::forward_list<void (*)(void)> initCallbacks;
+std::forward_list<void (*)(void)> updateCallbacks;
+
+void registerInitCallback(void (*func)(void)) {
+    initCallbacks.push_front(func);
+}
+
+void registerUpdateCallback(void (*func)(void)) {
+    updateCallbacks.push_front(func);
+}
 
 bool mbToRoastEnabled(void) { return mb.Coil(ROAST_ENABLE_ADDR); }
 double mbToSP(void) { return mb.Hreg(ROAST_SP_ADDR) / 10; }
@@ -50,10 +61,8 @@ void initRoaster(void) {
 }
 
 void config(void) {
-    WiFiManager wManager;
     pinMode(HEATER_PIN, OUTPUT);
     pinMode(FAN_PWN_PIN, OUTPUT);
-    wManager.autoConnect("GhettoRoaster", "gimmecoffee");
 }
 
 void setup(void) {
@@ -64,6 +73,9 @@ void setup(void) {
     initMAX6675();
     initModbus();
     initRoaster();
+    register_wifi();
+    for (auto it = initCallbacks.begin(); it != initCallbacks.end(); ++it)
+        (*it)();
 }
 
 void populateModbusRegisters(void) {
@@ -76,6 +88,8 @@ void loop(void) {
     if (gp_screen)
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     g_roast.tick();
+    for (auto it = updateCallbacks.begin(); it != updateCallbacks.end(); ++it)
+        (*it)();
     populateModbusRegisters();
     mb.task();
     delay(1000/REFRESH_RATE);

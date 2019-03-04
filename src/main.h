@@ -1,10 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-// Library dependencies (used by LDF)
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <DNSServer.h>
+#include <forward_list>
 
 // Thermocouple
 #include <max6675.h>
@@ -13,14 +10,15 @@
 // Modbus over TCP
 #include <ModbusIP_ESP8266.h>
 
-// WiFi configuration manager
-#include <WiFiManager.h>
-
 #include "config.h"
 #include "platforms/esp8266/config.h"
 #include "roastmanager.h"
 #include "screen.h"
 #include "platforms/esp8266/i2c_lcd.h"
+#include "platforms/esp8266/wifi.h"
+
+void registerInitCallback(void (*func)(void));
+void registerUpdateCallback(void (*func)(void));
 
 // Helpers
 bool mbToRoastEnabled(void);
