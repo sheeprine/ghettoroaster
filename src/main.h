@@ -13,6 +13,7 @@
 
 void registerInitCallback(void (*func)(void));
 void registerUpdateCallback(void (*func)(void));
+void registerScreen(Screen *screen);
 
 void setup(void);
 void loop(void);

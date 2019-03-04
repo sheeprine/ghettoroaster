@@ -4,6 +4,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "roastmanager.h"
 #include "i2c_screen.h"
+#include "main.h"
 
 void register_i2c_lcd(void);
 

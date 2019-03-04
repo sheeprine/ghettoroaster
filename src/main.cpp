@@ -15,6 +15,10 @@ void registerUpdateCallback(void (*func)(void)) {
     updateCallbacks.push_front(func);
 }
 
+void registerScreen(Screen *screen) {
+    gp_screen = screen;
+}
+
 void setup(void) {
     register_i2c_lcd();
     register_max6675();
