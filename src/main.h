@@ -6,9 +6,6 @@
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
 
-// LCD
-#include <LiquidCrystal_I2C.h>
-
 // Thermocouple
 #include <max6675.h>
 #include <SPI.h>
@@ -21,8 +18,9 @@
 
 #include "config.h"
 #include "platforms/esp8266/config.h"
-#include "i2c_screen.h"
 #include "roastmanager.h"
+#include "screen.h"
+#include "platforms/esp8266/i2c_lcd.h"
 
 // Helpers
 bool mbToRoastEnabled(void);

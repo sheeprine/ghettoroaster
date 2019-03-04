@@ -1,15 +1,15 @@
 #include "main.h"
 
-LiquidCrystal_I2C lcd(0x27,16,2);
-
 MAX6675 TC_ET;
 MAX6675 TC_BT;
 
 ModbusIP mb;
 
-i2cScreen screen(&lcd);
 RoastManager g_roast;
 Roaster *roasterState = g_roast.getRoasterState();
+// FIXME(sheeprine): Unused, will be populated at a later stage of the
+// refactoring
+Screen *gp_screen = NULL;
 
 
 bool mbToRoastEnabled(void) { return mb.Coil(ROAST_ENABLE_ADDR); }
@@ -47,25 +47,20 @@ void initRoaster(void) {
     g_roast.addFanSetDutyFunc(setFan);
     g_roast.addHeaterEnabledFunc(setHeater);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
-    g_roast.addScreen(&screen);
 }
 
 void config(void) {
     WiFiManager wManager;
     pinMode(HEATER_PIN, OUTPUT);
     pinMode(FAN_PWN_PIN, OUTPUT);
-    lcd.setCursor(0, 0);
-    lcd.print("      WiFi     ");
-    lcd.setCursor(0, 1);
-    lcd.print(" not configured ");
     wManager.autoConnect("GhettoRoaster", "gimmecoffee");
-    lcd.clear();
 }
 
 void setup(void) {
     config();
     // Map to 0-100%
     analogWriteRange(100);
+    register_i2c_lcd();
     initMAX6675();
     initModbus();
     initRoaster();
@@ -78,7 +73,8 @@ void populateModbusRegisters(void) {
 }
 
 void loop(void) {
-    screen.setWIFIStatus(WiFi.status() == WL_CONNECTED);
+    if (gp_screen)
+        gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     g_roast.tick();
     populateModbusRegisters();
     mb.task();
