@@ -8,11 +8,11 @@
 
 class RoastManager {
     private:
-        unsigned int refreshInterval = 500;
-        unsigned long lastRefresh = 0;
-        Roaster roasterState;
-        Screen *p_screen = NULL;
-        bool autoCool = true;
+        unsigned int m_refreshInterval = 500;
+        unsigned long m_lastRefresh = 0;
+        Roaster m_roasterState;
+        Screen *mp_screen = NULL;
+        bool m_autoCool = true;
         double(*p_envTemp)(void) = NULL;
         double(*p_beanTemp)(void) = NULL;
         double(*p_setpointTemp)(void) = NULL;

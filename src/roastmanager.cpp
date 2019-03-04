@@ -30,27 +30,27 @@ void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
 }
 
 void RoastManager::addScreen(Screen *screen) {
-    p_screen = screen;
+    mp_screen = screen;
 }
 
 Roaster *RoastManager::getRoasterState(void) {
     // FIXME(sheeprine): We shouldn't expose internal roaster state. But for
     // the moment it's convenient.
-    return &roasterState;
+    return &m_roasterState;
 }
 
 void RoastManager::setRefreshInterval(unsigned int interval) {
-    refreshInterval = interval;
+    m_refreshInterval = interval;
 }
 
 void RoastManager::updateRoasterState(void) {
     bool roastWantedState = p_roastEnabled();
-    if (roasterState.isRoasting() != roastWantedState) {
+    if (m_roasterState.isRoasting() != roastWantedState) {
         if (roastWantedState) {
-            roasterState.startRoast();
+            m_roasterState.startRoast();
         } else {
-            roasterState.stopRoast();
-            if (autoCool) {
+            m_roasterState.stopRoast();
+            if (m_autoCool) {
                 // TODO(sheeprine): Set FAN to MAX to lower temp as a security
                 // measure.
             }
@@ -59,39 +59,39 @@ void RoastManager::updateRoasterState(void) {
 }
 
 void RoastManager::refreshScreen(void) {
-    p_screen->setET(roasterState.getET());
-    p_screen->setBT(roasterState.getBT());
-    p_screen->setSP(roasterState.getSP());
-    p_screen->setFan(roasterState.getFan());
-    p_screen->setROR(roasterState.getROR());
-    p_screen->setRINT(roasterState.getRORInterval());
-    p_screen->setDuration(roasterState.getRoastTime());
-    p_screen->setRoastStatus(roastStates(roasterState.isRoasting()));
-    p_screen->refresh();
+    mp_screen->setET(m_roasterState.getET());
+    mp_screen->setBT(m_roasterState.getBT());
+    mp_screen->setSP(m_roasterState.getSP());
+    mp_screen->setFan(m_roasterState.getFan());
+    mp_screen->setROR(m_roasterState.getROR());
+    mp_screen->setRINT(m_roasterState.getRORInterval());
+    mp_screen->setDuration(m_roasterState.getRoastTime());
+    mp_screen->setRoastStatus(roastStates(m_roasterState.isRoasting()));
+    mp_screen->refresh();
 }
 
 void RoastManager::tick(void) {
-    if (millis() - lastRefresh > refreshInterval) {
+    if (millis() - m_lastRefresh > m_refreshInterval) {
         if (p_envTemp) {
-            roasterState.setET(p_envTemp());
+            m_roasterState.setET(p_envTemp());
         }
         if (p_beanTemp) {
-            roasterState.setBT(p_beanTemp());
+            m_roasterState.setBT(p_beanTemp());
         }
         if (p_setpointTemp) {
-            roasterState.setSP(p_setpointTemp());
+            m_roasterState.setSP(p_setpointTemp());
         }
-        lastRefresh = millis();
+        m_lastRefresh = millis();
     }
     updateRoasterState();
     if (p_fanDuty) {
-        roasterState.setFan(p_fanDuty());
+        m_roasterState.setFan(p_fanDuty());
     }
     if (p_heaterEnabled) {
-        p_heaterEnabled(roasterState.isHeaterEnabled());
+        p_heaterEnabled(m_roasterState.isHeaterEnabled());
     }
-    if (p_screen) {
+    if (mp_screen) {
         refreshScreen();
     }
-    roasterState.update();
+    m_roasterState.update();
 }

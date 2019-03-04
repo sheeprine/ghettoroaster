@@ -16,15 +16,15 @@ enum roastParams {
 
 class Roaster {
     private:
-        PID *pid = NULL;
-        unsigned int RORInterval = DEFAULT_ROR_INTERVAL;
-        unsigned int fanDutyCycle = 0;
-        unsigned long roastStart, nextROR = 0;
-        double *RORSource;
-        double ET, BT, SP, SV, ROR, ROR_BT = 0;
-        double kp, ki, kd;
+        PID *mp_pid = NULL;
+        unsigned int m_RORInterval = DEFAULT_ROR_INTERVAL;
+        unsigned int m_fanDutyCycle = 0;
+        unsigned long m_roastStart, m_nextROR = 0;
+        double *mp_RORSource;
+        double m_ET, m_BT, m_SP, m_SV, m_ROR, m_ROR_BT = 0;
+        double m_kP, m_kI, m_kD;
         // Conservative setting to avoid fire hazards
-        unsigned short enforceFanWithHeater = 100;
+        unsigned short m_enforceFanWithHeater = 100;
         void updateROR();
     public:
         Roaster();

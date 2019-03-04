@@ -1,112 +1,125 @@
 #include "roaster.h"
 
 
-Roaster::Roaster(void) : kp(75), ki(25), kd(50) {
-    RORSource = &BT;
+Roaster::Roaster(void) : m_kP(75), m_kI(25), m_kD(50) {
+    mp_RORSource = &m_BT;
     initPID();
 }
 
 Roaster::Roaster(unsigned int rorInterval) : Roaster() {
-    RORInterval = rorInterval;
+    m_RORInterval = rorInterval;
 }
 
 Roaster::~Roaster(void) {
-    delete pid;
+    delete mp_pid;
 }
 
 void Roaster::initPID() {
-    pid = new PID(&BT, &SV, &SP, kp, ki, kd, DIRECT);
+    mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, DIRECT);
 }
 
 void Roaster::startRoast() {
-    roastStart = millis();
-    nextROR = roastStart + RORInterval;
-    pid->SetMode(AUTOMATIC);
+    m_roastStart = millis();
+    m_nextROR = m_roastStart + m_RORInterval;
+    mp_pid->SetMode(AUTOMATIC);
 }
 
 void Roaster::stopRoast() {
-    pid->SetMode(MANUAL);
-    SV = 0;
-    roastStart = 0;
-    nextROR = 0;
+    mp_pid->SetMode(MANUAL);
+    m_SV = 0;
+    m_roastStart = 0;
+    m_nextROR = 0;
 }
 
 bool Roaster::isRoasting() {
-    return roastStart > 0;
+    return m_roastStart > 0;
 }
 
 double Roaster::getET() {
-    return ET;
+    return m_ET;
 }
 
 void Roaster::setET(double newET) {
-    ET = newET;
+    m_ET = newET;
 }
 
 double Roaster::getBT() {
-    return BT;
+    return m_BT;
 }
 
 void Roaster::setBT(double newBT) {
-    BT = newBT;
+    m_BT = newBT;
 }
 
 double Roaster::getSP() {
-    return SP;
+    return m_SP;
 }
 
 void Roaster::setSP(double newSP) {
-    SP = newSP;
+    m_SP = newSP;
 }
 
 void Roaster::setRoastingMinFanValue(unsigned int value) {
-    enforceFanWithHeater = value;
+    m_enforceFanWithHeater = value;
 }
 
 unsigned int Roaster::getFan() {
-    if (isHeaterEnabled() && (fanDutyCycle < enforceFanWithHeater))
-        return enforceFanWithHeater;
-    return fanDutyCycle;
+    if (isHeaterEnabled() && (m_fanDutyCycle < m_enforceFanWithHeater))
+        return m_enforceFanWithHeater;
+    return m_fanDutyCycle;
 }
 
 void Roaster::setFan(unsigned int newFan) {
-    fanDutyCycle = newFan > 100 ? 100 : newFan;
+    m_fanDutyCycle = newFan > 100 ? 100 : newFan;
 }
 
 bool Roaster::isHeaterEnabled() {
     // FIXME(sheeprine): Using a threshold on the PID output as PWM is
     // inefficient on Zero Cross SSR. We should implement something more robust
     // and customizable.
-    return SV > 150;
+    return m_SV > 150;
 }
 
 unsigned long Roaster::getRoastTime() {
-    if (roastStart)
-        return (millis() - roastStart) / 1000;
+    if (m_roastStart)
+        return (millis() - m_roastStart) / 1000;
     return 0;
 }
 
 void Roaster::updateROR() {
-    if (nextROR <= millis()) {
-        ROR = BT - ROR_BT;
-        ROR_BT = BT;
-        nextROR = millis() + RORInterval;
+    if (m_nextROR <= millis()) {
+        m_ROR = m_BT - m_ROR_BT;
+        m_ROR_BT = m_BT;
+        m_nextROR = millis() + m_RORInterval;
     }
 }
 
 double Roaster::getROR() {
-    return ROR;
+    return m_ROR;
 }
 
 unsigned int Roaster::getRORInterval() {
-    return RORInterval / 1000;
+    return m_RORInterval / 1000;
 }
 
 void Roaster::setRORSource(roastParams sourceType) {
-    RORSource = &BT;
+    mp_RORSource = &m_BT;
+    switch(sourceType) {
+        case ET:
+            mp_RORSource = &m_ET;
+            break;
+        case SP:
+            mp_RORSource = &m_SP;
+            break;
+        case SV:
+            mp_RORSource = &m_SV;
+            break;
+        default:
+            mp_RORSource = &m_BT;
+    }
 }
 
 void Roaster::update() {
     updateROR();
-    pid->Compute();
+    mp_pid->Compute();
 }

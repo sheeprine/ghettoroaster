@@ -1,9 +1,6 @@
 #include "main.h"
 
 RoastManager g_roast;
-Roaster *roasterState = g_roast.getRoasterState();
-// FIXME(sheeprine): Unused, will be populated at a later stage of the
-// refactoring
 Screen *gp_screen = NULL;
 
 // Callback lists

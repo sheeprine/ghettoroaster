@@ -2,7 +2,7 @@
 
 
 const char* Screen::roastStatesStr(roastStates state) {
-    switch(roastStatus) {
+    switch(state) {
         case DRY:
             return "DRY";
         case TP:
@@ -21,47 +21,47 @@ const char* Screen::roastStatesStr(roastStates state) {
 }
 
 void Screen::setRoastStatus(roastStates status) {
-    roastStatus = status;
+    m_roastStatus = status;
 }
 
 void Screen::useCelsius(void) {
-    isCelsius = true;
+    m_isCelsius = true;
 }
 
 void Screen::useFarhenheit(void) {
-    isCelsius = false;
+    m_isCelsius = false;
 }
 
 void Screen::setWIFIStatus(bool enabled) {
-    wifiEnabled = enabled;
+    m_wifiEnabled = enabled;
 }
 
 void Screen::setET(double temp) {
-    ET = temp;
+    m_ET = temp;
 }
 
 void Screen::setBT(double temp) {
-    BT = temp;
+    m_BT = temp;
 }
 
 void Screen::setSP(double temp) {
-    SP = temp;
+    m_SP = temp;
 }
 
 void Screen::setFan(unsigned int dutyCycle) {
-    fanDutyCycle = dutyCycle;
+    m_fanDutyCycle = dutyCycle;
 }
 
 void Screen::setROR(double ror) {
-    ROR = ror;
+    m_ROR = ror;
 }
 
 void Screen::setRINT(unsigned int rorInterval) {
-    RINT = rorInterval;
+    m_RINT = rorInterval;
 }
 
 void Screen::setDuration(unsigned long duration) {
-    roastDuration = duration;
+    m_roastDuration = duration;
 }
 
 void Screen::refresh(void) {

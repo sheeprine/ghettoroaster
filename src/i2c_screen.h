@@ -34,9 +34,9 @@ const char noWIFI[8] = {
 
 class i2cScreen : public Screen {
     private:
-        char tempStatsScreenBuffer[2][17];
-        char outputScreenBuffer[2][17];
-        LiquidCrystal_I2C *lcd = NULL;
+        char m_tempStatsScreenBuffer[2][17];
+        char m_outputScreenBuffer[2][17];
+        LiquidCrystal_I2C *mp_lcd = NULL;
         unsigned int doubleLen(double num);
         void tempStatsScreen(void);
         void outputScreen(void);
