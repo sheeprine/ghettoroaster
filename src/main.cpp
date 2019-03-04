@@ -8,8 +8,8 @@ MAX6675 TC_BT;
 ModbusIP mb;
 
 i2cScreen screen(&lcd);
-RoastManager roast;
-Roaster *roasterState = roast.getRoasterState();
+RoastManager g_roast;
+Roaster *roasterState = g_roast.getRoasterState();
 
 
 bool mbToRoastEnabled(void) { return mb.Coil(ROAST_ENABLE_ADDR); }
@@ -41,13 +41,13 @@ void initModbus(void) {
 }
 
 void initRoaster(void) {
-    roast.addEnvTempFunc(getETTemp);
-    roast.addBeanTempFunc(getBTTemp);
-    roast.addSetpointTempFunc(mbToSP);
-    roast.addFanSetDutyFunc(setFan);
-    roast.addHeaterEnabledFunc(setHeater);
-    roast.addRoastEnabledFunc(mbToRoastEnabled);
-    roast.addScreen(&screen);
+    g_roast.addEnvTempFunc(getETTemp);
+    g_roast.addBeanTempFunc(getBTTemp);
+    g_roast.addSetpointTempFunc(mbToSP);
+    g_roast.addFanSetDutyFunc(setFan);
+    g_roast.addHeaterEnabledFunc(setHeater);
+    g_roast.addRoastEnabledFunc(mbToRoastEnabled);
+    g_roast.addScreen(&screen);
 }
 
 void config(void) {
@@ -79,7 +79,7 @@ void populateModbusRegisters(void) {
 
 void loop(void) {
     screen.setWIFIStatus(WiFi.status() == WL_CONNECTED);
-    roast.tick();
+    g_roast.tick();
     populateModbusRegisters();
     mb.task();
     delay(1000/REFRESH_RATE);
