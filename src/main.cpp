@@ -25,15 +25,15 @@ void setup() {
     register_modbus();
     register_controls();
     register_wifi();
-    for (auto it = initCallbacks.begin(); it != initCallbacks.end(); ++it)
-        (*it)();
+    for (auto &callback : initCallbacks)
+        (*callback)();
 }
 
 void loop() {
     if (gp_screen)
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     g_roast.tick();
-    for (auto it = updateCallbacks.begin(); it != updateCallbacks.end(); ++it)
-        (*it)();
+    for (auto &callback : updateCallbacks)
+        (*callback)();
     delay(1000/REFRESH_RATE);
 }
