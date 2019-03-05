@@ -15,7 +15,4 @@ void registerInitCallback(void (*func)());
 void registerUpdateCallback(void (*func)());
 void registerScreen(Screen *screen);
 
-void setup();
-void loop();
-
 #endif
