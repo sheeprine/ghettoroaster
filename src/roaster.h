@@ -16,7 +16,7 @@ enum roastParams {
 
 class Roaster {
     private:
-        PID *mp_pid = NULL;
+        PID *mp_pid = nullptr;
         unsigned int m_RORInterval = DEFAULT_ROR_INTERVAL;
         unsigned int m_fanDutyCycle = 0;
         unsigned long m_roastStart, m_nextROR = 0;

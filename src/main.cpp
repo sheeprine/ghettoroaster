@@ -1,7 +1,7 @@
 #include "main.h"
 
 RoastManager g_roast;
-Screen *gp_screen = NULL;
+Screen *gp_screen = nullptr;
 
 // Callback lists
 std::forward_list<void (*)()> initCallbacks;

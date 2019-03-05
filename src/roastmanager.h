@@ -11,15 +11,15 @@ class RoastManager {
         unsigned int m_refreshInterval = 500;
         unsigned long m_lastRefresh = 0;
         Roaster m_roasterState;
-        Screen *mp_screen = NULL;
+        Screen *mp_screen = nullptr;
         bool m_autoCool = true;
-        double(*p_envTemp)() = NULL;
-        double(*p_beanTemp)() = NULL;
-        double(*p_setpointTemp)() = NULL;
-        unsigned int(*p_fanDuty)() = NULL;
-        void(*p_fanSetDuty)(unsigned int) = NULL;
-        void(*p_heaterEnabled)(bool) = NULL;
-        bool(*p_roastEnabled)() = NULL;
+        double(*p_envTemp)() = nullptr;
+        double(*p_beanTemp)() = nullptr;
+        double(*p_setpointTemp)() = nullptr;
+        unsigned int(*p_fanDuty)() = nullptr;
+        void(*p_fanSetDuty)(unsigned int) = nullptr;
+        void(*p_heaterEnabled)(bool) = nullptr;
+        bool(*p_roastEnabled)() = nullptr;
         void updateRoasterState();
         void refreshScreen();
     public:
