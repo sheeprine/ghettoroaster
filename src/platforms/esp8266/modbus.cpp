@@ -9,8 +9,8 @@ bool mbToRoastEnabled() {
     return mb.Coil(ROAST_ENABLE_ADDR);
 }
 
-double mbToSP(void) {
-    return mb.Hreg(ROAST_SP_ADDR) / 10;
+double mbToSP() {
+    return mb.Hreg(ROAST_SP_ADDR) / double(10);
 }
 
 unsigned int mbToFan() {
