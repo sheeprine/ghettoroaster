@@ -4,14 +4,14 @@ RoastManager g_roast;
 Screen *gp_screen = NULL;
 
 // Callback lists
-std::forward_list<void (*)(void)> initCallbacks;
-std::forward_list<void (*)(void)> updateCallbacks;
+std::forward_list<void (*)()> initCallbacks;
+std::forward_list<void (*)()> updateCallbacks;
 
-void registerInitCallback(void (*func)(void)) {
+void registerInitCallback(void (*func)()) {
     initCallbacks.push_front(func);
 }
 
-void registerUpdateCallback(void (*func)(void)) {
+void registerUpdateCallback(void (*func)()) {
     updateCallbacks.push_front(func);
 }
 
@@ -19,7 +19,7 @@ void registerScreen(Screen *screen) {
     gp_screen = screen;
 }
 
-void setup(void) {
+void setup() {
     register_i2c_lcd();
     register_max6675();
     register_modbus();
@@ -29,7 +29,7 @@ void setup(void) {
         (*it)();
 }
 
-void loop(void) {
+void loop() {
     if (gp_screen)
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     g_roast.tick();

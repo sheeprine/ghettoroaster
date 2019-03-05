@@ -24,11 +24,11 @@ void Screen::setRoastStatus(roastStates status) {
     m_roastStatus = status;
 }
 
-void Screen::useCelsius(void) {
+void Screen::useCelsius() {
     m_isCelsius = true;
 }
 
-void Screen::useFarhenheit(void) {
+void Screen::useFarhenheit() {
     m_isCelsius = false;
 }
 
@@ -64,6 +64,6 @@ void Screen::setDuration(unsigned long duration) {
     m_roastDuration = duration;
 }
 
-void Screen::refresh(void) {
+void Screen::refresh() {
     doRefresh();
 }

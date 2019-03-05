@@ -6,11 +6,11 @@
 #include "roastmanager.h"
 #include "main.h"
 
-double getETTemp(void);
-double getBTTemp(void);
+double getETTemp();
+double getBTTemp();
 
-void initMAX6675(void);
-void addMAX6675Callbacks(void);
-void register_max6675(void);
+void initMAX6675();
+void addMAX6675Callbacks();
+void register_max6675();
 
 #endif

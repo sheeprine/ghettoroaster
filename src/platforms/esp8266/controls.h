@@ -8,6 +8,6 @@
 
 void setFan(unsigned int dutyCycle);
 void setHeater(bool enabled);
-void register_controls(void);
+void register_controls();
 
 #endif

@@ -16,7 +16,7 @@ unsigned int i2cScreen::doubleLen(double num) {
     return 1;
 }
 
-void i2cScreen::tempStatsScreen(void) {
+void i2cScreen::tempStatsScreen() {
     //  =================
     // |ET:300C  ROR:30.1|
     // |BT:300C  RINT:60s|
@@ -34,7 +34,7 @@ void i2cScreen::tempStatsScreen(void) {
     mp_lcd->print(m_tempStatsScreenBuffer[1]);
 }
 
-void i2cScreen::outputScreen(void) {
+void i2cScreen::outputScreen() {
     //  =================
     // |FAN:100%  FIN   W|
     // |SP:350C   D:10:30|
@@ -56,7 +56,7 @@ void i2cScreen::outputScreen(void) {
     mp_lcd->print(m_outputScreenBuffer[1]);
 }
 
-void i2cScreen::doRefresh(void) {
+void i2cScreen::doRefresh() {
     bool m_isInterval = m_roastDuration/3 & 1;
     if (m_roastStatus != STOPPED && m_isInterval) {
         tempStatsScreen();

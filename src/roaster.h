@@ -29,8 +29,8 @@ class Roaster {
     public:
         Roaster();
         Roaster(unsigned int rorInterval);
-        ~Roaster(void);
-        void initPID(void);
+        ~Roaster();
+        void initPID();
         void startRoast();
         void stopRoast();
         bool isRoasting();
@@ -48,7 +48,7 @@ class Roaster {
         void setRORSource(roastParams sourceType);
         double getROR();
         unsigned int getRORInterval();
-        void update(void);
+        void update();
 };
 
 #endif

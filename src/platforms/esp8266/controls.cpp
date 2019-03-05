@@ -10,17 +10,17 @@ void setHeater(bool enabled) {
     digitalWrite(HEATER_PIN, enabled);
 }
 
-void initControls(void) {
+void initControls() {
     pinMode(HEATER_PIN, OUTPUT);
     pinMode(FAN_PWM_PIN, OUTPUT);
 }
 
-void addControlCallbacks(void) {
+void addControlCallbacks() {
     g_roast.addFanSetDutyFunc(setFan);
     g_roast.addHeaterEnabledFunc(setHeater);
 }
 
-void register_controls(void) {
+void register_controls() {
     registerInitCallback(initControls);
     registerInitCallback(addControlCallbacks);
 }

@@ -1,19 +1,19 @@
 #include "roastmanager.h"
 
 
-void RoastManager::addEnvTempFunc(double(*func)(void)) {
+void RoastManager::addEnvTempFunc(double(*func)()) {
     p_envTemp = func;
 }
 
-void RoastManager::addBeanTempFunc(double(*func)(void)) {
+void RoastManager::addBeanTempFunc(double(*func)()) {
     p_beanTemp = func;
 }
 
-void RoastManager::addSetpointTempFunc(double(*func)(void)) {
+void RoastManager::addSetpointTempFunc(double(*func)()) {
     p_setpointTemp = func;
 }
 
-void RoastManager::addFanDutyFunc(unsigned int(*func)(void)) {
+void RoastManager::addFanDutyFunc(unsigned int(*func)()) {
     p_fanDuty = func;
 }
 
@@ -25,7 +25,7 @@ void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {
     p_heaterEnabled = func;
 }
 
-void RoastManager::addRoastEnabledFunc(bool(*func)(void)) {
+void RoastManager::addRoastEnabledFunc(bool(*func)()) {
     p_roastEnabled = func;
 }
 
@@ -33,7 +33,7 @@ void RoastManager::addScreen(Screen *screen) {
     mp_screen = screen;
 }
 
-Roaster *RoastManager::getRoasterState(void) {
+Roaster *RoastManager::getRoasterState() {
     // FIXME(sheeprine): We shouldn't expose internal roaster state. But for
     // the moment it's convenient.
     return &m_roasterState;
@@ -43,7 +43,7 @@ void RoastManager::setRefreshInterval(unsigned int interval) {
     m_refreshInterval = interval;
 }
 
-void RoastManager::updateRoasterState(void) {
+void RoastManager::updateRoasterState() {
     bool roastWantedState = p_roastEnabled();
     if (m_roasterState.isRoasting() != roastWantedState) {
         if (roastWantedState) {
@@ -58,7 +58,7 @@ void RoastManager::updateRoasterState(void) {
     }
 }
 
-void RoastManager::refreshScreen(void) {
+void RoastManager::refreshScreen() {
     mp_screen->setET(m_roasterState.getET());
     mp_screen->setBT(m_roasterState.getBT());
     mp_screen->setSP(m_roasterState.getSP());
@@ -70,7 +70,7 @@ void RoastManager::refreshScreen(void) {
     mp_screen->refresh();
 }
 
-void RoastManager::tick(void) {
+void RoastManager::tick() {
     if (millis() - m_lastRefresh > m_refreshInterval) {
         if (p_envTemp) {
             m_roasterState.setET(p_envTemp());

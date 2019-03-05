@@ -38,9 +38,9 @@ class i2cScreen : public Screen {
         char m_outputScreenBuffer[2][17];
         LiquidCrystal_I2C *mp_lcd = NULL;
         unsigned int doubleLen(double num);
-        void tempStatsScreen(void);
-        void outputScreen(void);
-        void doRefresh(void);
+        void tempStatsScreen();
+        void outputScreen();
+        void doRefresh();
     public:
         i2cScreen(LiquidCrystal_I2C *i2cLCD);
         ~i2cScreen() {};

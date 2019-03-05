@@ -11,11 +11,11 @@
 #include "platforms/esp8266/controls.h"
 #include "platforms/esp8266/wifi.h"
 
-void registerInitCallback(void (*func)(void));
-void registerUpdateCallback(void (*func)(void));
+void registerInitCallback(void (*func)());
+void registerUpdateCallback(void (*func)());
 void registerScreen(Screen *screen);
 
-void setup(void);
-void loop(void);
+void setup();
+void loop();
 
 #endif

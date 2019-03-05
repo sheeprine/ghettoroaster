@@ -1,7 +1,7 @@
 #include "roaster.h"
 
 
-Roaster::Roaster(void) : m_kP(75), m_kI(25), m_kD(50) {
+Roaster::Roaster() : m_kP(75), m_kI(25), m_kD(50) {
     mp_RORSource = &m_BT;
     initPID();
 }
@@ -10,7 +10,7 @@ Roaster::Roaster(unsigned int rorInterval) : Roaster() {
     m_RORInterval = rorInterval;
 }
 
-Roaster::~Roaster(void) {
+Roaster::~Roaster() {
     delete mp_pid;
 }
 

@@ -5,14 +5,14 @@
 #include "roastmanager.h"
 #include "main.h"
 
-bool mbToRoastEnabled(void);
-double mbToSP(void);
-unsigned int mbToFan(void);
+bool mbToRoastEnabled();
+double mbToSP();
+unsigned int mbToFan();
 
-void initModbus(void);
-void addModbusCallbacks(void);
-void populateModbusRegisters(void);
-void updateModbus(void);
-void register_modbus(void);
+void initModbus();
+void addModbusCallbacks();
+void populateModbusRegisters();
+void updateModbus();
+void register_modbus();
 
 #endif

@@ -13,28 +13,28 @@ class RoastManager {
         Roaster m_roasterState;
         Screen *mp_screen = NULL;
         bool m_autoCool = true;
-        double(*p_envTemp)(void) = NULL;
-        double(*p_beanTemp)(void) = NULL;
-        double(*p_setpointTemp)(void) = NULL;
-        unsigned int(*p_fanDuty)(void) = NULL;
+        double(*p_envTemp)() = NULL;
+        double(*p_beanTemp)() = NULL;
+        double(*p_setpointTemp)() = NULL;
+        unsigned int(*p_fanDuty)() = NULL;
         void(*p_fanSetDuty)(unsigned int) = NULL;
         void(*p_heaterEnabled)(bool) = NULL;
-        bool(*p_roastEnabled)(void) = NULL;
-        void updateRoasterState(void);
-        void refreshScreen(void);
+        bool(*p_roastEnabled)() = NULL;
+        void updateRoasterState();
+        void refreshScreen();
     public:
         RoastManager() {};
-        void addEnvTempFunc(double(*func)(void));
-        void addBeanTempFunc(double(*func)(void));
-        void addSetpointTempFunc(double(*func)(void));
-        void addFanDutyFunc(unsigned int(*func)(void));
+        void addEnvTempFunc(double(*func)());
+        void addBeanTempFunc(double(*func)());
+        void addSetpointTempFunc(double(*func)());
+        void addFanDutyFunc(unsigned int(*func)());
         void addFanSetDutyFunc(void(*func)(unsigned int));
         void addHeaterEnabledFunc(void(*func)(bool));
-        void addRoastEnabledFunc(bool(*func)(void));
+        void addRoastEnabledFunc(bool(*func)());
         void addScreen(Screen *screen);
         void setRefreshInterval(unsigned int interval);
-        Roaster *getRoasterState(void);
-        void tick(void);
+        Roaster *getRoasterState();
+        void tick();
 };
 
 #endif

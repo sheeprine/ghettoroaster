@@ -6,6 +6,6 @@
 #include "i2c_screen.h"
 #include "main.h"
 
-void register_i2c_lcd(void);
+void register_i2c_lcd();
 
 #endif

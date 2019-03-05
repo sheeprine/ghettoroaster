@@ -8,6 +8,6 @@
 // WiFi configuration manager
 #include <WiFiManager.h>
 
-void register_wifi(void);
+void register_wifi();
 
 #endif

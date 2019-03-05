@@ -15,7 +15,7 @@ enum roastStates {
 
 class Screen {
     private:
-        virtual void doRefresh(void) = 0;
+        virtual void doRefresh() = 0;
     protected:
         bool m_wifiEnabled = false;
         bool m_isCelsius = true;
@@ -27,8 +27,8 @@ class Screen {
     public:
         virtual ~Screen() {};
         void setRoastStatus(roastStates status);
-        void useCelsius(void);
-        void useFarhenheit(void);
+        void useCelsius();
+        void useFarhenheit();
         void setWIFIStatus(bool enabled);
         void setET(double temp);
         void setBT(double temp);
@@ -37,7 +37,7 @@ class Screen {
         void setROR(double ror);
         void setRINT(unsigned int rorInterval);
         void setDuration(unsigned long duration);
-        void refresh(void);
+        void refresh();
 };
 
 #endif
