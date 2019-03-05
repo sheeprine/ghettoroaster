@@ -40,10 +40,10 @@ class i2cScreen : public Screen {
         unsigned int doubleLen(double num);
         void tempStatsScreen();
         void outputScreen();
-        void doRefresh();
+        void doRefresh() override;
     public:
         i2cScreen(LiquidCrystal_I2C *i2cLCD);
-        ~i2cScreen() {};
+        ~i2cScreen() override {};
 };
 
 #endif
