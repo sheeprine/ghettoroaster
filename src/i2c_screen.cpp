@@ -63,7 +63,7 @@ void i2cScreen::outputScreen() {
     snprintf(m_outputScreenBuffer[0], sizeof(m_outputScreenBuffer[0]),
             "FAN:%d%-*c%-*s",
             m_fanDutyCycle, 5-doubleLen(m_fanDutyCycle), '%',
-            11 - strlen(stateStr), stateStr);
+            11 - static_cast<int>(strlen(stateStr)), stateStr);
     snprintf(m_outputScreenBuffer[1], sizeof(m_outputScreenBuffer[1]),
             "SP:%.0f%-*cD:%02d:%02d",
             m_SP, 6-doubleLen(m_SP), sign,
