@@ -16,7 +16,6 @@ limitations under the License.
 
 #include "roaster.h"
 
-
 Roaster::Roaster() : m_kP(75), m_kI(25), m_kD(50) {
     mp_RORSource = &m_BT;
     initPID();
@@ -130,7 +129,7 @@ unsigned int Roaster::getRORInterval() {
     return m_RORInterval / 1000;
 }
 
-void Roaster::setRORSource(roastParams sourceType) {
+void Roaster::setRORSource(RoastParams sourceType) {
     switch (sourceType) {
         case ET:
             mp_RORSource = &m_ET;

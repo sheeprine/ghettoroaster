@@ -22,7 +22,7 @@ limitations under the License.
 
 #define DEFAULT_ROR_INTERVAL 30000;
 
-enum roastParams {
+enum RoastParams {
     BT = 0,
     ET,
     SP,
@@ -64,7 +64,7 @@ class Roaster {
         void setFan(unsigned int newFan);
         bool isHeaterEnabled();
         unsigned long getRoastTime();
-        void setRORSource(roastParams sourceType);
+        void setRORSource(RoastParams sourceType);
         double getROR();
         unsigned int getRORInterval();
         void update();
