@@ -21,8 +21,8 @@ Roaster::Roaster() : m_kP(75), m_kI(25), m_kD(50) {
     initPID();
 }
 
-Roaster::Roaster(unsigned int rorInterval) : Roaster() {
-    m_RORInterval = rorInterval;
+Roaster::Roaster(unsigned int RORInterval) : Roaster() {
+    m_RORInterval = RORInterval;
 }
 
 Roaster::~Roaster() {

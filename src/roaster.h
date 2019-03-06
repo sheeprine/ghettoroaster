@@ -45,7 +45,7 @@ class Roaster {
         void updateROR();
     public:
         Roaster();
-        Roaster(unsigned int rorInterval);
+        Roaster(unsigned int RORInterval);
         ~Roaster();
         void initPID();
         void setPIDThreshold(unsigned int threshold);
