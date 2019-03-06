@@ -38,10 +38,12 @@ void i2cScreen::tempStatsScreen() {
     // |BT:300C  RINT:60s|
     //  =================
     const char sign = m_isCelsius ? 'C':'F';
-    sprintf(m_tempStatsScreenBuffer[0], "ET:%.0f%-*c  ROR:%-*.1f",
+    snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
+            "ET:%.0f%-*c  ROR:%-*.1f",
             m_ET, 4-doubleLen(m_ET), sign,
             4-doubleLen(m_ROR), m_ROR);
-    sprintf(m_tempStatsScreenBuffer[1], "BT:%.0f%-*c  RINT:%ds",
+    snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
+            "BT:%.0f%-*c  RINT:%ds",
             m_BT, 4-doubleLen(m_BT), sign,
             m_RINT);
     mp_lcd->setCursor(0, 0);
@@ -58,10 +60,12 @@ void i2cScreen::outputScreen() {
     div_t time = div(m_roastDuration, 60);
     const char sign = m_isCelsius ? 'C':'F';
     const char *stateStr = roastStatesStr(m_roastStatus);
-    sprintf(m_outputScreenBuffer[0], "FAN:%d%-*c%-*s",
+    snprintf(m_outputScreenBuffer[0], sizeof(m_outputScreenBuffer[0]),
+            "FAN:%d%-*c%-*s",
             m_fanDutyCycle, 5-doubleLen(m_fanDutyCycle), '%',
             11 - strlen(stateStr), stateStr);
-    sprintf(m_outputScreenBuffer[1], "SP:%.0f%-*cD:%02d:%02d",
+    snprintf(m_outputScreenBuffer[1], sizeof(m_outputScreenBuffer[1]),
+            "SP:%.0f%-*cD:%02d:%02d",
             m_SP, 6-doubleLen(m_SP), sign,
             time.quot, time.rem);
     mp_lcd->setCursor(0, 0);
