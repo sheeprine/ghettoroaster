@@ -18,7 +18,7 @@ limitations under the License.
 
 
 const char* Screen::roastStatesStr(roastStates state) {
-    switch(state) {
+    switch (state) {
         case DRY:
             return "DRY";
         case TP:

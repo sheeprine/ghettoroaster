@@ -18,7 +18,7 @@ limitations under the License.
 
 extern RoastManager g_roast;
 
-LiquidCrystal_I2C lcd(0x27,16,2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 i2cScreen screen(&lcd);
 
 void register_i2c_lcd() {

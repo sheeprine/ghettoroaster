@@ -127,7 +127,7 @@ unsigned int Roaster::getRORInterval() {
 }
 
 void Roaster::setRORSource(roastParams sourceType) {
-    switch(sourceType) {
+    switch (sourceType) {
         case ET:
             mp_RORSource = &m_ET;
             break;
