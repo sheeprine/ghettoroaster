@@ -31,6 +31,10 @@ Roaster::~Roaster() {
 }
 
 void Roaster::initPID() {
+    if (mp_pid) {
+        delete mp_pid;
+        mp_pid = nullptr;
+    }
     mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, DIRECT);
 }
 
