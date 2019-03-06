@@ -18,6 +18,10 @@ void Roaster::initPID() {
     mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, DIRECT);
 }
 
+void Roaster::setPIDThreshold(unsigned int threshold) {
+    m_pidActivationThreshold = threshold;
+}
+
 void Roaster::startRoast() {
     m_roastStart = millis();
     m_nextROR = m_roastStart + m_RORInterval;
@@ -77,7 +81,7 @@ bool Roaster::isHeaterEnabled() {
     // FIXME(sheeprine): Using a threshold on the PID output as PWM is
     // inefficient on Zero Cross SSR. We should implement something more robust
     // and customizable.
-    return m_SV > 150;
+    return m_SV > m_pidActivationThreshold;
 }
 
 unsigned long Roaster::getRoastTime() {

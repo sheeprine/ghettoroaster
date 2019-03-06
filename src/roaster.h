@@ -19,6 +19,7 @@ class Roaster {
         PID *mp_pid = nullptr;
         unsigned int m_RORInterval = DEFAULT_ROR_INTERVAL;
         unsigned int m_fanDutyCycle = 0;
+        unsigned int m_pidActivationThreshold = 150;
         unsigned long m_roastStart, m_nextROR = 0;
         double *mp_RORSource;
         double m_ET, m_BT, m_SP, m_SV, m_ROR, m_ROR_BT = 0;
@@ -31,6 +32,7 @@ class Roaster {
         Roaster(unsigned int rorInterval);
         ~Roaster();
         void initPID();
+        void setPIDThreshold(unsigned int threshold);
         void startRoast();
         void stopRoast();
         bool isRoasting();
