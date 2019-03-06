@@ -44,7 +44,9 @@ void RoastManager::setRefreshInterval(unsigned int interval) {
 }
 
 void RoastManager::updateRoasterState() {
-    bool roastWantedState = p_roastEnabled();
+    bool roastWantedState = false;
+    if (p_roastEnabled)
+        roastWantedState = p_roastEnabled();
     if (m_roasterState.isRoasting() != roastWantedState) {
         if (roastWantedState) {
             m_roasterState.startRoast();
