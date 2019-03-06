@@ -18,6 +18,7 @@ limitations under the License.
 
 Roaster::Roaster() : m_kP(75), m_kI(25), m_kD(50) {
     mp_RORSource = &m_BT;
+    mp_RORCalculator = new RORCalculator(DEFAULT_ROR_SAMPLING/1000);
     initPID();
 }
 
@@ -27,6 +28,7 @@ Roaster::Roaster(unsigned int RORInterval) : Roaster() {
 
 Roaster::~Roaster() {
     delete mp_pid;
+    delete mp_RORCalculator;
 }
 
 void Roaster::initPID() {
@@ -43,7 +45,7 @@ void Roaster::setPIDThreshold(unsigned int threshold) {
 
 void Roaster::startRoast() {
     m_roastStart = millis();
-    m_nextROR = m_roastStart + m_RORInterval;
+    m_nextROR = m_roastStart + m_RORSampling;
     mp_pid->SetMode(AUTOMATIC);
 }
 
@@ -52,6 +54,7 @@ void Roaster::stopRoast() {
     m_SV = 0;
     m_roastStart = 0;
     m_nextROR = 0;
+    mp_RORCalculator->resetROR();
 }
 
 bool Roaster::isRoasting() {
@@ -115,14 +118,15 @@ unsigned long Roaster::getRoastTime() {
 
 void Roaster::updateROR() {
     if (m_nextROR <= millis()) {
-        m_ROR = *mp_RORSource - m_ROR_BT;
-        m_ROR_BT = *mp_RORSource;
-        m_nextROR = millis() + m_RORInterval;
+        mp_RORCalculator->updateROR(*mp_RORSource);
+        m_nextROR = millis() + m_RORSampling;
     }
 }
 
 double Roaster::getROR() {
-    return m_ROR;
+    if (m_RORInterval != DEFAULT_ROR_SAMPLING)
+        return mp_RORCalculator->getROR(m_RORInterval/1000);
+    return mp_RORCalculator->getROR();
 }
 
 unsigned int Roaster::getRORInterval() {
