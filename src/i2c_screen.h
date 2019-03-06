@@ -55,6 +55,7 @@ class i2cScreen : public Screen {
         LiquidCrystal_I2C *mp_lcd = nullptr;
         unsigned int doubleLen(double num);
         void tempStatsScreen();
+        void tempStatsScreen_alt();
         void outputScreen();
         void doRefresh() override;
     public:

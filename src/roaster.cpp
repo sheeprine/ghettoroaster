@@ -129,6 +129,10 @@ double Roaster::getROR() {
     return mp_RORCalculator->getROR();
 }
 
+double Roaster::getROR(unsigned int interval) {
+    return mp_RORCalculator->getROR(interval);
+}
+
 unsigned int Roaster::getRORInterval() {
     return m_RORInterval / 1000;
 }

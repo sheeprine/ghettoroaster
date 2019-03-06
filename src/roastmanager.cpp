@@ -82,7 +82,13 @@ void RoastManager::refreshScreen() {
     mp_screen->setSP(m_roasterState.getSP());
     mp_screen->setFan(m_roasterState.getFan());
     mp_screen->setROR(m_roasterState.getROR());
-    mp_screen->setRINT(m_roasterState.getRORInterval());
+    if (m_useDetailedROR) {
+        mp_screen->setROR5(m_roasterState.getROR(5));
+        mp_screen->setROR30(m_roasterState.getROR(30));
+    }
+    else {
+        mp_screen->setRINT(m_roasterState.getRORInterval());
+    }
     mp_screen->setDuration(m_roasterState.getRoastTime());
     mp_screen->setRoastStatus(roastStates(m_roasterState.isRoasting()));
     mp_screen->refresh();

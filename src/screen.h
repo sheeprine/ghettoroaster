@@ -35,7 +35,7 @@ class Screen {
     protected:
         bool m_wifiEnabled = false;
         bool m_isCelsius = true;
-        double m_ET, m_BT, m_SP, m_ROR = 0;
+        double m_ET, m_BT, m_SP, m_ROR5, m_ROR30, m_ROR = 0;
         unsigned int m_fanDutyCycle, m_RINT = 0;
         unsigned long m_roastDuration = 0;
         roastStates m_roastStatus = STOPPED;
@@ -51,6 +51,8 @@ class Screen {
         void setSP(double temp);
         void setFan(unsigned int dutyCycle);
         void setROR(double ror);
+        void setROR5(double ror);
+        void setROR30(double ror);
         void setRINT(unsigned int rorInterval);
         void setDuration(unsigned long duration);
         void refresh();

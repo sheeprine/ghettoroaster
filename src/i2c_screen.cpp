@@ -32,20 +32,41 @@ unsigned int i2cScreen::doubleLen(double num) {
     return 1;
 }
 
+void i2cScreen::tempStatsScreen_alt() {
+    //  =================
+    // |ET:300C  R05:30.1|
+    // |BT:300C  R30:18.4|
+    //  =================
+    const char sign = m_isCelsius ? 'C':'F';
+    snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
+            "ET:%.0f%-*c  R05:%-*.1f",
+            m_ET, 4-doubleLen(m_ET), sign,
+            4-doubleLen(m_ROR5), m_ROR5);
+    snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
+            "BT:%.0f%-*c  R30:%-*.1f",
+            m_BT, 4-doubleLen(m_BT), sign,
+            4-doubleLen(m_ROR30), m_ROR30);
+}
+
 void i2cScreen::tempStatsScreen() {
     //  =================
     // |ET:300C  ROR:30.1|
     // |BT:300C  RINT:60s|
     //  =================
-    const char sign = m_isCelsius ? 'C':'F';
-    snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
-            "ET:%.0f%-*c  ROR:%-*.1f",
-            m_ET, 4-doubleLen(m_ET), sign,
-            4-doubleLen(m_ROR), m_ROR);
-    snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
-            "BT:%.0f%-*c  RINT:%ds",
-            m_BT, 4-doubleLen(m_BT), sign,
-            m_RINT);
+    if (m_RINT) {
+        const char sign = m_isCelsius ? 'C':'F';
+        snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
+                "ET:%.0f%-*c  ROR:%-*.1f",
+                m_ET, 4-doubleLen(m_ET), sign,
+                4-doubleLen(m_ROR), m_ROR);
+        snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
+                "BT:%.0f%-*c  RINT:%ds",
+                m_BT, 4-doubleLen(m_BT), sign,
+                m_RINT);
+    }
+    else {
+        tempStatsScreen_alt();
+    }
     mp_lcd->setCursor(0, 0);
     mp_lcd->print(m_tempStatsScreenBuffer[0]);
     mp_lcd->setCursor(0, 1);

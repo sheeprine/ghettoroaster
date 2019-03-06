@@ -68,6 +68,7 @@ class Roaster {
         unsigned long getRoastTime();
         void setRORSource(RoastParams sourceType);
         double getROR();
+        double getROR(unsigned int interval);
         unsigned int getRORInterval();
         void update();
 };

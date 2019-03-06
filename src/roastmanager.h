@@ -29,6 +29,7 @@ class RoastManager {
         Roaster m_roasterState;
         Screen *mp_screen = nullptr;
         bool m_autoCool = true;
+        bool m_useDetailedROR = true;
         double(*p_envTemp)() = nullptr;
         double(*p_beanTemp)() = nullptr;
         double(*p_setpointTemp)() = nullptr;

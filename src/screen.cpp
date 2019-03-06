@@ -72,6 +72,14 @@ void Screen::setROR(double ror) {
     m_ROR = ror;
 }
 
+void Screen::setROR5(double ror) {
+    m_ROR5 = ror;
+}
+
+void Screen::setROR30(double ror) {
+    m_ROR30 = ror;
+}
+
 void Screen::setRINT(unsigned int rorInterval) {
     m_RINT = rorInterval;
 }
