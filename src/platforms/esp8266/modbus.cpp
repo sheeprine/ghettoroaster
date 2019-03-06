@@ -26,7 +26,7 @@ bool mbToRoastEnabled() {
 }
 
 double mbToSP() {
-    return mb.Hreg(ROAST_SP_ADDR) / double(10);
+    return mb.Hreg(ROAST_SP_ADDR) / static_cast<double>(10);
 }
 
 unsigned int mbToFan() {
