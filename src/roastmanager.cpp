@@ -17,8 +17,8 @@ void RoastManager::addFanDutyFunc(unsigned int(*func)()) {
     p_fanDuty = func;
 }
 
-void RoastManager::addFanSetDutyFunc(void(*func)(unsigned int)) {
-    p_fanSetDuty = func;
+void RoastManager::addSetFanDutyFunc(void(*func)(unsigned int)) {
+    p_setFanDuty = func;
 }
 
 void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {

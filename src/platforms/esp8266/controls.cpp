@@ -16,7 +16,7 @@ void initControls() {
 }
 
 void addControlCallbacks() {
-    g_roast.addFanSetDutyFunc(setFan);
+    g_roast.addSetFanDutyFunc(setFan);
     g_roast.addHeaterEnabledFunc(setHeater);
 }
 
