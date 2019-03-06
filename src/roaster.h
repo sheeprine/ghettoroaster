@@ -58,6 +58,7 @@ class Roaster {
         void setBT(double newBT);
         double getSP();
         void setSP(double newSP);
+        double getSV();
         unsigned int getFan();
         void setRoastingMinFanValue(unsigned int value);
         void setFan(unsigned int newFan);

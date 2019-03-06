@@ -83,6 +83,10 @@ void Roaster::setSP(double newSP) {
     m_SP = newSP;
 }
 
+double Roaster::getSV() {
+    return m_SV;
+}
+
 void Roaster::setRoastingMinFanValue(unsigned int value) {
     m_enforceFanWithHeater = value;
 }
