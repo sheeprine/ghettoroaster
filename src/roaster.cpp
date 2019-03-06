@@ -92,8 +92,8 @@ unsigned long Roaster::getRoastTime() {
 
 void Roaster::updateROR() {
     if (m_nextROR <= millis()) {
-        m_ROR = m_BT - m_ROR_BT;
-        m_ROR_BT = m_BT;
+        m_ROR = *mp_RORSource - m_ROR_BT;
+        m_ROR_BT = *mp_RORSource;
         m_nextROR = millis() + m_RORInterval;
     }
 }
