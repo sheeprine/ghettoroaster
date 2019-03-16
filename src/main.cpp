@@ -18,10 +18,14 @@ limitations under the License.
 
 RoastManager g_roast;
 Screen *gp_screen = nullptr;
+#define SLEEP_DELAY 1000/REFRESH_RATE
 
 // Callback lists
 std::forward_list<void (*)()> initCallbacks;
 std::forward_list<void (*)()> updateCallbacks;
+
+// Drift compensation
+unsigned long loopStart;
 
 void registerInitCallback(void (*func)()) {
     initCallbacks.push_front(func);
@@ -46,10 +50,12 @@ void setup() {
 }
 
 void loop() {
+    loopStart = millis();
+    // Update roast/PID information as soon as possible to minimize drift
+    g_roast.tick();
     if (gp_screen)
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
-    g_roast.tick();
     for (auto &callback : updateCallbacks)
         (*callback)();
-    delay(1000/REFRESH_RATE);
+    delay(SLEEP_DELAY - millis() - loopStart);
 }
