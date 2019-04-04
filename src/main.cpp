@@ -57,5 +57,5 @@ void loop() {
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     for (auto &callback : updateCallbacks)
         (*callback)();
-    delay(SLEEP_DELAY - millis() - loopStart);
+    delay(SLEEP_DELAY - (millis() - loopStart));
 }
