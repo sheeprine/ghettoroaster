@@ -49,6 +49,7 @@ void initModbus() {
 
 void addModbusCallbacks() {
     g_roast.addSetpointTempFunc(mbToSP);
+    g_roast.addFanDutyFunc(mbToFan);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
 }
 
