@@ -41,6 +41,10 @@ void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {
     p_heaterEnabled = func;
 }
 
+void RoastManager::addHeaterPWMFunc(void(*func)(unsigned int)) {
+    p_heaterPWM = func;
+}
+
 void RoastManager::addRoastEnabledFunc(bool(*func)()) {
     p_roastEnabled = func;
 }
@@ -113,6 +117,9 @@ void RoastManager::tick() {
     }
     if (p_heaterEnabled) {
         p_heaterEnabled(m_roasterState.isHeaterEnabled());
+    }
+    if (p_heaterPWM) {
+        p_heaterPWM(m_roasterState.getSV());
     }
     if (mp_screen) {
         refreshScreen();

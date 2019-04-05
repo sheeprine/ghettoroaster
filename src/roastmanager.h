@@ -36,6 +36,7 @@ class RoastManager {
         unsigned int(*p_fanDuty)() = nullptr;
         void(*p_setFanDuty)(unsigned int) = nullptr;
         void(*p_heaterEnabled)(bool) = nullptr;
+        void(*p_heaterPWM)(unsigned int) = nullptr;
         bool(*p_roastEnabled)() = nullptr;
         void updateRoasterState();
         void refreshScreen();
@@ -47,6 +48,7 @@ class RoastManager {
         void addFanDutyFunc(unsigned int(*func)());
         void addSetFanDutyFunc(void(*func)(unsigned int));
         void addHeaterEnabledFunc(void(*func)(bool));
+        void addHeaterPWMFunc(void(*func)(unsigned int));
         void addRoastEnabledFunc(bool(*func)());
         void addScreen(Screen *screen);
         void setRefreshInterval(unsigned int interval);
