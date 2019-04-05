@@ -22,6 +22,8 @@ limitations under the License.
 #include "roastmanager.h"
 #include "main.h"
 
+#define DUTY_STEP PWMRANGE/100
+
 void setFan(unsigned int dutyCycle);
 void setHeater(bool enabled);
 void register_controls();
