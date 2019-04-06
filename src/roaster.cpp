@@ -94,6 +94,20 @@ void Roaster::setRoastingMinFanValue(unsigned int value) {
 }
 
 unsigned int Roaster::getFan() {
+    if (m_autoFan) {
+        if (m_BT < 160) {
+            m_fanDutyCycle = 100;
+        }
+        else if (m_BT < 180) {
+            m_fanDutyCycle = 80;
+        }
+        else if (m_BT < 200) {
+            m_fanDutyCycle = 70;
+        }
+        else {
+            m_fanDutyCycle = 60;
+        }
+    }
     if (isHeaterEnabled() && (m_fanDutyCycle < m_enforceFanWithHeater))
         return m_enforceFanWithHeater;
     return m_fanDutyCycle;
