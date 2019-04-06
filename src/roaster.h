@@ -43,7 +43,7 @@ class Roaster {
         double *mp_RORSource;
         double m_ET, m_BT, m_SP, m_SV, m_kP, m_kI, m_kD = 0;
         // Conservative setting to avoid fire hazards
-        unsigned short m_enforceFanWithHeater = 100;
+        unsigned short m_enforceFanWithHeater = 10;
         void updateROR();
     public:
         Roaster();
