@@ -108,10 +108,10 @@ void RoastManager::tick() {
         if (p_beanTemp) {
             m_roasterState.setBT(p_beanTemp());
         }
-        if (p_setpointTemp) {
-            m_roasterState.setSP(p_setpointTemp());
-        }
         m_lastRefresh = millis();
+    }
+    if (p_setpointTemp) {
+        m_roasterState.setSP(p_setpointTemp());
     }
     updateRoasterState();
     if (p_setAutoFan) {
