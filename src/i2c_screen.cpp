@@ -32,6 +32,18 @@ unsigned int i2cScreen::doubleLen(double num) {
     return 1;
 }
 
+#ifdef I2C_SPEED_HACK
+void i2cScreen::selectiveUpdate(unsigned short row, const char *next) {
+    const char *rowBuffer = m_screenBuffer[row];
+    for (unsigned short i=0; i<17; ++i) {
+        if (rowBuffer[i] != next[i]) {
+            mp_lcd->setCursor(i, row);
+            mp_lcd->print(next[i]);
+        }
+    }
+}
+#endif
+
 void i2cScreen::tempStatsScreen_alt() {
     //  =================
     // |ET:300C  R05:30.1|
@@ -67,10 +79,17 @@ void i2cScreen::tempStatsScreen() {
     else {
         tempStatsScreen_alt();
     }
+#ifndef I2C_SPEED_HACK
     mp_lcd->setCursor(0, 0);
     mp_lcd->print(m_tempStatsScreenBuffer[0]);
     mp_lcd->setCursor(0, 1);
     mp_lcd->print(m_tempStatsScreenBuffer[1]);
+#else
+    selectiveUpdate(0, m_tempStatsScreenBuffer[0]);
+    selectiveUpdate(1, m_tempStatsScreenBuffer[1]);
+    memcpy(m_screenBuffer[0], m_tempStatsScreenBuffer[0], 17);
+    memcpy(m_screenBuffer[1], m_tempStatsScreenBuffer[1], 17);
+#endif
 }
 
 void i2cScreen::outputScreen() {
@@ -89,12 +108,22 @@ void i2cScreen::outputScreen() {
             "SP:%.0f%-*cD:%02d:%02d",
             m_SP, 6-doubleLen(m_SP), sign,
             time.quot, time.rem);
+#ifndef I2C_SPEED_HACK
     mp_lcd->setCursor(0, 0);
     mp_lcd->print(m_outputScreenBuffer[0]);
+#else
+    selectiveUpdate(0, m_outputScreenBuffer[0]);
+#endif
     mp_lcd->setCursor(15, 0);
     mp_lcd->write(m_wifiEnabled ? 1 : 0);
+#ifndef I2C_SPEED_HACK
     mp_lcd->setCursor(0, 1);
     mp_lcd->print(m_outputScreenBuffer[1]);
+#else
+    selectiveUpdate(1, m_outputScreenBuffer[1]);
+    memcpy(m_screenBuffer[0], m_outputScreenBuffer[0], 17);
+    memcpy(m_screenBuffer[1], m_outputScreenBuffer[1], 17);
+#endif
 }
 
 void i2cScreen::doRefresh() {

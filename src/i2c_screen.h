@@ -21,9 +21,12 @@ limitations under the License.
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
+
+#define I2C_SPEED_HACK 1
 
 const char WIFI[8] = {
     0b00000,
@@ -52,8 +55,14 @@ class i2cScreen : public Screen {
     private:
         char m_tempStatsScreenBuffer[2][17];
         char m_outputScreenBuffer[2][17];
+#ifdef I2C_SPEED_HACK
+        char m_screenBuffer[2][17];
+#endif
         LiquidCrystal_I2C *mp_lcd = nullptr;
         unsigned int doubleLen(double num);
+#ifdef I2C_SPEED_HACK
+        void selectiveUpdate(unsigned short row, const char *newBuffer);
+#endif
         void tempStatsScreen();
         void tempStatsScreen_alt();
         void outputScreen();
