@@ -37,8 +37,8 @@ void RoastManager::addSetFanDutyFunc(void(*func)(unsigned int)) {
     p_setFanDuty = func;
 }
 
-void RoastManager::addSetAutoFanState(void (*func)(bool)) {
-    p_setAutoFan = func;
+void RoastManager::addGetAutoFanState(bool (*func)()) {
+    p_getAutoFan = func;
 }
 
 void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {
@@ -77,7 +77,7 @@ void RoastManager::updateRoasterState() {
         } else {
             m_roasterState.stopRoast();
             if (m_autoFan)
-                m_roasterState->setFan(m_autoCoolValue);
+                m_roasterState.setFan(m_autoCoolValue);
         }
     }
 }
@@ -114,8 +114,8 @@ void RoastManager::tick() {
         m_roasterState.setSP(p_setpointTemp());
     }
     updateRoasterState();
-    if (p_setAutoFan) {
-        m_roasterState.m_autoFan = p_setAutoFan();
+    if (p_getAutoFan) {
+        m_roasterState.setAutoFanState(p_getAutoFan());
     }
     if (p_fanDuty and !m_autoFan) {
         m_roasterState.setFan(p_fanDuty());

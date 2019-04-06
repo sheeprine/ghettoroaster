@@ -42,6 +42,7 @@ class Roaster {
         unsigned long m_roastStart, m_nextROR = 0;
         double *mp_RORSource;
         double m_ET, m_BT, m_SP, m_SV, m_kP, m_kI, m_kD = 0;
+        bool m_autoFan = false;
         // Conservative setting to avoid fire hazards
         unsigned short m_enforceFanWithHeater = 10;
         void updateROR();
@@ -64,6 +65,7 @@ class Roaster {
         unsigned int getFan();
         void setRoastingMinFanValue(unsigned int value);
         void setFan(unsigned int newFan);
+        void setAutoFanState(bool state);
         bool isHeaterEnabled();
         unsigned long getRoastTime();
         void setRORSource(RoastParams sourceType);

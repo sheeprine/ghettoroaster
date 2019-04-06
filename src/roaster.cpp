@@ -103,6 +103,10 @@ void Roaster::setFan(unsigned int newFan) {
     m_fanDutyCycle = newFan > 100 ? 100 : newFan;
 }
 
+void Roaster::setAutoFanState(bool state) {
+    m_autoFan = state;
+}
+
 bool Roaster::isHeaterEnabled() {
     // FIXME(sheeprine): Using a threshold on the PID output as PWM is
     // inefficient on Zero Cross SSR. We should implement something more robust

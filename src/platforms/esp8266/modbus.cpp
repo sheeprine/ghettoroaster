@@ -33,7 +33,7 @@ unsigned int mbToFan() {
     return mb.Hreg(ROAST_FAN_ADDR);
 }
 
-unsigned int mbToAutoFanEnabled() {
+bool mbToAutoFanEnabled() {
     return mb.Coil(AUTOFAN_ENABLE_ADDR);
 }
 
@@ -55,7 +55,7 @@ void initModbus() {
 void addModbusCallbacks() {
     g_roast.addSetpointTempFunc(mbToSP);
     g_roast.addFanDutyFunc(mbToFan);
-    g_roast.addSetAutoFanState(mbToAutoFanEnabled);
+    g_roast.addGetAutoFanState(mbToAutoFanEnabled);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
 }
 
