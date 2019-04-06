@@ -26,6 +26,7 @@ std::forward_list<void (*)()> updateCallbacks;
 
 // Drift compensation
 unsigned long loopStart;
+unsigned long drift;
 
 void registerInitCallback(void (*func)()) {
     initCallbacks.push_front(func);
@@ -57,5 +58,7 @@ void loop() {
         gp_screen->setWIFIStatus(WiFi.status() == WL_CONNECTED);
     for (auto &callback : updateCallbacks)
         (*callback)();
-    delay(SLEEP_DELAY - (millis() - loopStart));
+    drift = millis() - loopStart;
+    if (drift < SLEEP_DELAY)
+        delay(SLEEP_DELAY - drift);
 }
