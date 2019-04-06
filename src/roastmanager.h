@@ -28,8 +28,9 @@ class RoastManager {
         unsigned long m_lastRefresh = 0;
         Roaster m_roasterState;
         Screen *mp_screen = nullptr;
-        bool m_autoCool = true;
+        bool m_autoFan = false;
         bool m_useDetailedROR = true;
+        unsigned int m_autoCoolValue = 100;
         double(*p_envTemp)() = nullptr;
         double(*p_beanTemp)() = nullptr;
         double(*p_setpointTemp)() = nullptr;
@@ -47,6 +48,7 @@ class RoastManager {
         void addSetpointTempFunc(double(*func)());
         void addFanDutyFunc(unsigned int(*func)());
         void addSetFanDutyFunc(void(*func)(unsigned int));
+        void addSetAutoFanState(void (*func)(bool));
         void addHeaterEnabledFunc(void(*func)(bool));
         void addHeaterPWMFunc(void(*func)(unsigned int));
         void addRoastEnabledFunc(bool(*func)());

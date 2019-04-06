@@ -40,11 +40,12 @@ limitations under the License.
 #define HEATER_PIN  D4
 
 // Modbus addresses
-#define ROAST_ENABLE_ADDR 100
-#define ROAST_ET_ADDR     101
-#define ROAST_BT_ADDR     102
-#define ROAST_ROR_ADDR    103
-#define ROAST_SP_ADDR     201
-#define ROAST_FAN_ADDR    202
+#define ROAST_ENABLE_ADDR   100
+#define ROAST_ET_ADDR       101
+#define ROAST_BT_ADDR       102
+#define ROAST_ROR_ADDR      103
+#define ROAST_SP_ADDR       201
+#define AUTOFAN_ENABLE_ADDR 300
+#define ROAST_FAN_ADDR      301
 
 #endif

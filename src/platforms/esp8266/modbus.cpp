@@ -33,6 +33,10 @@ unsigned int mbToFan() {
     return mb.Hreg(ROAST_FAN_ADDR);
 }
 
+unsigned int mbToAutoFanEnabled() {
+    return mb.Coil(AUTOFAN_ENABLE_ADDR);
+}
+
 void initModbus() {
     // NOTE(sheeprine): The modbus library is always trying connect to WiFi and
     // will not check for errors.
@@ -44,12 +48,14 @@ void initModbus() {
     mb.addIreg(ROAST_BT_ADDR);
     mb.addIreg(ROAST_ROR_ADDR);
     mb.addHreg(ROAST_SP_ADDR);
+    mb.addCoil(AUTOFAN_ENABLE_ADDR, false);
     mb.addHreg(ROAST_FAN_ADDR);
 }
 
 void addModbusCallbacks() {
     g_roast.addSetpointTempFunc(mbToSP);
     g_roast.addFanDutyFunc(mbToFan);
+    g_roast.addSetAutoFanState(mbToAutoFanEnabled);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
 }
 

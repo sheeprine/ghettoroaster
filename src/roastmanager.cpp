@@ -37,6 +37,10 @@ void RoastManager::addSetFanDutyFunc(void(*func)(unsigned int)) {
     p_setFanDuty = func;
 }
 
+void RoastManager::addSetAutoFanState(void (*func)(bool)) {
+    p_setAutoFan = func;
+}
+
 void RoastManager::addHeaterEnabledFunc(void(*func)(bool)) {
     p_heaterEnabled = func;
 }
@@ -72,10 +76,8 @@ void RoastManager::updateRoasterState() {
             m_roasterState.startRoast();
         } else {
             m_roasterState.stopRoast();
-            if (m_autoCool) {
-                // TODO(sheeprine): Set FAN to MAX to lower temp as a security
-                // measure.
-            }
+            if (m_autoFan)
+                m_roasterState->setFan(m_autoCoolValue);
         }
     }
 }
@@ -112,8 +114,14 @@ void RoastManager::tick() {
         m_lastRefresh = millis();
     }
     updateRoasterState();
-    if (p_fanDuty) {
+    if (p_setAutoFan) {
+        m_roasterState.m_autoFan = p_setAutoFan();
+    }
+    if (p_fanDuty and !m_autoFan) {
         m_roasterState.setFan(p_fanDuty());
+    }
+    if (p_setFanDuty) {
+        p_setFanDuty(m_roasterState.getFan());
     }
     if (p_heaterEnabled) {
         p_heaterEnabled(m_roasterState.isHeaterEnabled());
