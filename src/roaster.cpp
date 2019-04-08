@@ -172,6 +172,6 @@ void Roaster::setRORSource(RoastParams sourceType) {
 }
 
 void Roaster::update() {
-    updateROR();
     mp_pid->Compute();
+    updateROR();
 }

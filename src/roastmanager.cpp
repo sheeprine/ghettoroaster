@@ -114,6 +114,7 @@ void RoastManager::tick() {
         m_roasterState.setSP(p_setpointTemp());
     }
     updateRoasterState();
+    m_roasterState.update();
     if (p_getAutoFan) {
         m_roasterState.setAutoFanState(p_getAutoFan());
     }
@@ -132,5 +133,4 @@ void RoastManager::tick() {
     if (mp_screen) {
         refreshScreen();
     }
-    m_roasterState.update();
 }
