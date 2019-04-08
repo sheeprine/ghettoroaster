@@ -42,15 +42,15 @@ bool mbToPIDDebug() {
 }
 
 double mbToPIDKp() {
-    return mb.Hreg(PID_KP_ADDR);
+    return mb.Hreg(PID_KP_ADDR)/10;
 }
 
 double mbToPIDKi() {
-    return mb.Hreg(PID_KI_ADDR);
+    return mb.Hreg(PID_KI_ADDR)/10;
 }
 
 double mbToPIDKd() {
-    return mb.Hreg(PID_KD_ADDR);
+    return mb.Hreg(PID_KD_ADDR)/10;
 }
 
 void initModbus() {
