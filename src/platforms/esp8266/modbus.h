@@ -24,6 +24,10 @@ limitations under the License.
 bool mbToRoastEnabled();
 double mbToSP();
 unsigned int mbToFan();
+bool mbToPIDDebug();
+double mbToPIDKp();
+double mbToPIDKi();
+double mbToPIDKd();
 
 void initModbus();
 void addModbusCallbacks();

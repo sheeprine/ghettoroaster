@@ -16,6 +16,21 @@ limitations under the License.
 
 #include "roastmanager.h"
 
+void RoastManager::addPIDDebugFunc(bool(*func)()) {
+    p_PIDDebug = func;
+}
+
+void RoastManager::addPIDKpFunc(double(*func)()) {
+    p_PIDKp = func;
+}
+
+void RoastManager::addPIDKiFunc(double(*func)()) {
+    p_PIDKi = func;
+}
+
+void RoastManager::addPIDKdFunc(double(*func)()) {
+    p_PIDKd = func;
+}
 
 void RoastManager::addEnvTempFunc(double(*func)()) {
     p_envTemp = func;
@@ -112,6 +127,11 @@ void RoastManager::tick() {
     }
     if (p_setpointTemp) {
         m_roasterState.setSP(p_setpointTemp());
+    }
+    if (p_PIDDebug and p_PIDDebug()) {
+        if (p_PIDKp && p_PIDKi && p_PIDKd) {
+            g_roast->SetPIDTunings(p_PIDKp(), p_PIDKi(), p_PIDKd());
+        }
     }
     updateRoasterState();
     m_roasterState.update();

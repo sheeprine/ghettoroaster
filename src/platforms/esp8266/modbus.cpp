@@ -37,6 +37,22 @@ bool mbToAutoFanEnabled() {
     return mb.Coil(AUTOFAN_ENABLE_ADDR);
 }
 
+bool mbToPIDDebug() {
+    return mb.Coil(PID_DEBUG_ADDR);
+}
+
+double mbToPIDKp() {
+    return mb.Hreg(PID_KP_ADDR);
+}
+
+double mbToPIDKi() {
+    return mb.Hreg(PID_KI_ADDR);
+}
+
+double mbToPIDKd() {
+    return mb.Hreg(PID_KD_ADDR);
+}
+
 void initModbus() {
     // NOTE(sheeprine): The modbus library is always trying connect to WiFi and
     // will not check for errors.
@@ -50,6 +66,10 @@ void initModbus() {
     mb.addHreg(ROAST_SP_ADDR);
     mb.addCoil(AUTOFAN_ENABLE_ADDR, false);
     mb.addHreg(ROAST_FAN_ADDR);
+    mb.addCoil(PID_DEBUG_ADDR, false);
+    mb.addHreg(PID_KP_ADDR);
+    mb.addHreg(PID_KI_ADDR);
+    mb.addHreg(PID_KD_ADDR);
 }
 
 void addModbusCallbacks() {
@@ -57,6 +77,10 @@ void addModbusCallbacks() {
     g_roast.addFanDutyFunc(mbToFan);
     g_roast.addGetAutoFanState(mbToAutoFanEnabled);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
+    g_roast.addPIDDebugFunc(mbToPIDDebug);
+    g_roast.addPIDKp(mbToPIDKp);
+    g_roast.addPIDKi(mbToPIDKi);
+    g_roast.addPIDKd(mbToPIDKd);
 }
 
 void populateModbusRegisters() {

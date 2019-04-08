@@ -47,5 +47,9 @@ limitations under the License.
 #define ROAST_SP_ADDR       201
 #define AUTOFAN_ENABLE_ADDR 300
 #define ROAST_FAN_ADDR      301
+#define PID_DEBUG_ADDR      400
+#define PID_KP_ADDR         401
+#define PID_KI_ADDR         402
+#define PID_KD_ADDR         403
 
 #endif
