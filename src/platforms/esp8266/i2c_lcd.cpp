@@ -24,4 +24,8 @@ i2cScreen screen(&lcd);
 void register_i2c_lcd() {
   g_roast.addScreen(&screen);
   registerScreen(&screen);
+  lcd.setCursor(0, 0);
+  lcd.print(" GhettoRoaster ");
+  lcd.setCursor(0, 1);
+  lcd.print("Initializing...");
 }
