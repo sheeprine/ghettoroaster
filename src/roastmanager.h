@@ -25,7 +25,7 @@ limitations under the License.
 class RoastManager {
     private:
         unsigned int m_refreshInterval = 100;
-        unsigned long m_lastRefresh = 0;
+        unsigned long m_nextRefresh = 0;
         Roaster m_roasterState;
         Screen *mp_screen = nullptr;
         bool m_autoFan = false;

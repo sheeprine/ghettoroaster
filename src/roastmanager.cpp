@@ -101,8 +101,8 @@ void RoastManager::refreshScreen() {
 }
 
 void RoastManager::tick() {
-    if (millis() - m_lastRefresh >= m_refreshInterval) {
-        m_lastRefresh = millis();
+    if (millis() >= m_nextRefresh) {
+        m_nextRefresh = millis() + m_refreshInterval;
         if (p_envTemp) {
             m_roasterState.setET(p_envTemp());
         }
