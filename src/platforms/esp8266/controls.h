@@ -20,12 +20,24 @@ limitations under the License.
 #include <Arduino.h>
 #include "platforms/esp8266/config.h"
 #include "roastmanager.h"
+#include "config.h"
 #include "main.h"
+
+#ifdef USE_HEATER_PWM
+#include <core_esp8266_waveform.h>
+
+#define HEATER_PWM_FREQ 10
+#define FREQ_PERIOD 1E6/HEATER_PWM_FREQ
+#endif
 
 #define DUTY_STEP PWMRANGE/100
 
 void setFan(unsigned int dutyCycle);
+#ifndef USE_HEATER_PWM
 void setHeater(bool enabled);
+#else
+void setHeaterPWM(unsigned int val);
+#endif
 void register_controls();
 
 #endif

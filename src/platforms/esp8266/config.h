@@ -17,6 +17,8 @@ limitations under the License.
 #ifndef ESP8266_CONFIG_H
 #define ESP8266_CONFIG_H
 
+#define USE_HEATER_PWM
+
 // nodemcu pin mapping
 //  A0 -> Usable
 //  D0 -> Usable (/!\ HIGH at boot)

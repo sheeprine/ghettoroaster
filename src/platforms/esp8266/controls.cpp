@@ -19,13 +19,20 @@ limitations under the License.
 extern RoastManager g_roast;
 
 void setFan(unsigned int dutyCycle) {
-    // Convert to 8 bits resolution
     analogWrite(FAN_PWM_PIN, dutyCycle*DUTY_STEP);
 }
 
+#ifndef USE_HEATER_PWM
 void setHeater(bool enabled) {
     digitalWrite(HEATER_PIN, enabled);
 }
+#else
+void setHeaterPWM(unsigned int val) {
+    // FIXME(sheeprine): Assume that PID max is 255
+    unsigned long highTime = val*FREQ_PERIOD/255;
+    startWaveform(HEATER_PIN, highTime, FREQ_PERIOD-highTime, 0);
+}
+#endif
 
 void initControls() {
     pinMode(HEATER_PIN, OUTPUT);
@@ -34,7 +41,11 @@ void initControls() {
 
 void addControlCallbacks() {
     g_roast.addSetFanDutyFunc(setFan);
+#ifndef USE_HEATER_PWM
     g_roast.addHeaterEnabledFunc(setHeater);
+#else
+    g_roast.addHeaterPWMFunc(setHeaterPWM);
+#endif
 }
 
 void register_controls() {
