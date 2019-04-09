@@ -173,6 +173,7 @@ void Roaster::setRORSource(RoastParams sourceType) {
         default:
             mp_RORSource = &m_BT;
     }
+    mp_RORCalculator->reset();
 }
 
 void Roaster::update() {
