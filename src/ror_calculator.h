@@ -27,17 +27,17 @@ class RORCalculator {
     public:
         RORCalculator(unsigned int samplingInterval,
             unsigned int historySize=ROR_HISTORY_SIZE);
-        double getROR();
-        double getROR(unsigned int interval);
-        void updateROR(double value);
-        void resetROR();
+        double get();
+        double get(unsigned int interval);
+        void update(double value);
+        void reset();
 
     private:
-        unsigned int m_RORSamplingInterval;
-        unsigned int m_RORSampleNum = 0;
+        unsigned int m_samplingInterval;
+        unsigned int m_sampleNum = 0;
         double m_lastTemp = 0;
-        std::vector<double> m_RORHistory;
-        double getRORSum(unsigned int num_samples, double scale_last=0.0);
+        std::vector<double> m_history;
+        double getSum(unsigned int numSamples, double scaleLast=0.0);
 };
 
 #endif

@@ -16,46 +16,46 @@ limitations under the License.
 
 #include "ror_calculator.h"
 
-RORCalculator::RORCalculator(unsigned int samplingInterval, unsigned int historySize) : m_RORSamplingInterval(samplingInterval) {
-    m_RORSampleNum = historySize/m_RORSamplingInterval;
-    m_RORHistory.reserve(m_RORSampleNum);
+RORCalculator::RORCalculator(unsigned int samplingInterval, unsigned int historySize) : m_samplingInterval(samplingInterval) {
+    m_sampleNum = historySize/m_samplingInterval;
+    m_history.reserve(m_sampleNum);
 }
 
-double RORCalculator::getROR(unsigned int interval) {
-    div_t samples = div(interval, m_RORSamplingInterval);
-    double scale = static_cast<double>(samples.rem)/m_RORSamplingInterval;
-    return getRORSum(samples.quot, scale);
+double RORCalculator::get(unsigned int interval) {
+    div_t samples = div(interval, m_samplingInterval);
+    double scale = static_cast<double>(samples.rem)/m_samplingInterval;
+    return getSum(samples.quot, scale);
 }
 
-double RORCalculator::getROR() {
-    if (m_RORHistory.empty())
+double RORCalculator::get() {
+    if (m_history.empty())
         return -1;
-    return m_RORHistory.back();
+    return m_history.back();
 }
 
-double RORCalculator::getRORSum(unsigned int num_samples, double scale_last) {
-    if (num_samples > m_RORSampleNum)
+double RORCalculator::getSum(unsigned int numSamples, double scaleLast) {
+    if (numSamples > m_sampleNum)
         return -1;
-    if (num_samples > m_RORHistory.size()) {
-        num_samples = m_RORHistory.size();
-        scale_last = 0;
+    if (numSamples > m_history.size()) {
+        numSamples = m_history.size();
+        scaleLast = 0;
     }
     double sum = 0.0;
-    auto it = m_RORHistory.rbegin();
-    for ( ; it != m_RORHistory.rbegin()+num_samples; ++it)
+    auto it = m_history.rbegin();
+    for ( ; it != m_history.rbegin() + numSamples; ++it)
         sum += *it;
-    if (scale_last)
-        sum += *it * scale_last;
+    if (scaleLast)
+        sum += *it * scaleLast;
     return sum;
 }
 
-void RORCalculator::updateROR(double value) {
-    m_RORHistory.push_back(value - m_lastTemp);
+void RORCalculator::update(double value) {
+    m_history.push_back(value - m_lastTemp);
     m_lastTemp = value;
-    if (m_RORHistory.size() > m_RORSampleNum)
-        m_RORHistory.erase(m_RORHistory.begin());
+    if (m_history.size() > m_sampleNum)
+        m_history.erase(m_history.begin());
 }
 
-void RORCalculator::resetROR() {
-    m_RORHistory.clear();
+void RORCalculator::reset() {
+    m_history.clear();
 }

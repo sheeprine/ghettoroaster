@@ -58,7 +58,7 @@ void Roaster::stopRoast() {
     m_SV = 0;
     m_roastStart = 0;
     m_nextROR = 0;
-    mp_RORCalculator->resetROR();
+    mp_RORCalculator->reset();
 }
 
 bool Roaster::isRoasting() {
@@ -140,19 +140,19 @@ unsigned long Roaster::getRoastTime() {
 
 void Roaster::updateROR() {
     if (m_nextROR <= millis()) {
-        mp_RORCalculator->updateROR(*mp_RORSource);
+        mp_RORCalculator->update(*mp_RORSource);
         m_nextROR = millis() + m_RORSampling;
     }
 }
 
 double Roaster::getROR() {
     if (m_RORInterval != DEFAULT_ROR_SAMPLING)
-        return mp_RORCalculator->getROR(m_RORInterval/1000);
-    return mp_RORCalculator->getROR();
+        return mp_RORCalculator->get(m_RORInterval/1000);
+    return mp_RORCalculator->get();
 }
 
 double Roaster::getROR(unsigned int interval) {
-    return mp_RORCalculator->getROR(interval);
+    return mp_RORCalculator->get(interval);
 }
 
 unsigned int Roaster::getRORInterval() {
