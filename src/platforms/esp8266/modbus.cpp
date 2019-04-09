@@ -78,9 +78,9 @@ void addModbusCallbacks() {
     g_roast.addGetAutoFanState(mbToAutoFanEnabled);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
     g_roast.addPIDDebugFunc(mbToPIDDebug);
-    g_roast.addPIDKp(mbToPIDKp);
-    g_roast.addPIDKi(mbToPIDKi);
-    g_roast.addPIDKd(mbToPIDKd);
+    g_roast.addPIDKpFunc(mbToPIDKp);
+    g_roast.addPIDKiFunc(mbToPIDKi);
+    g_roast.addPIDKdFunc(mbToPIDKd);
 }
 
 void populateModbusRegisters() {

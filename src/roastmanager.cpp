@@ -130,7 +130,7 @@ void RoastManager::tick() {
     }
     if (p_PIDDebug and p_PIDDebug()) {
         if (p_PIDKp && p_PIDKi && p_PIDKd) {
-            g_roast->SetPIDTunings(p_PIDKp(), p_PIDKi(), p_PIDKd());
+            m_roasterState.setPIDTunings(p_PIDKp(), p_PIDKi(), p_PIDKd());
         }
     }
     updateRoasterState();
