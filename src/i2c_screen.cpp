@@ -50,12 +50,12 @@ void i2cScreen::tempStatsScreen_alt() {
     // |BT:300C  R30:18.4|
     //  =================
     const char sign = m_isCelsius ? 'C':'F';
-    snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
-            "ET:%.0f%-*c  R05:%-*.1f",
+    snprintf_P(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
+            PSTR("ET:%.0f%-*c  R05:%-*.1f"),
             m_ET, 4-doubleLen(m_ET), sign,
             4-doubleLen(m_ROR5), m_ROR5);
-    snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
-            "BT:%.0f%-*c  R30:%-*.1f",
+    snprintf_P(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
+            PSTR("BT:%.0f%-*c  R30:%-*.1f"),
             m_BT, 4-doubleLen(m_BT), sign,
             4-doubleLen(m_ROR30), m_ROR30);
 }
@@ -67,12 +67,12 @@ void i2cScreen::tempStatsScreen() {
     //  =================
     if (m_RINT) {
         const char sign = m_isCelsius ? 'C':'F';
-        snprintf(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
-                "ET:%.0f%-*c  ROR:%-*.1f",
+        snprintf_P(m_tempStatsScreenBuffer[0], sizeof(m_tempStatsScreenBuffer[0]),
+                PSTR("ET:%.0f%-*c  ROR:%-*.1f"),
                 m_ET, 4-doubleLen(m_ET), sign,
                 4-doubleLen(m_ROR), m_ROR);
-        snprintf(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
-                "BT:%.0f%-*c  RINT:%ds",
+        snprintf_P(m_tempStatsScreenBuffer[1], sizeof(m_tempStatsScreenBuffer[1]),
+                PSTR("BT:%.0f%-*c  RINT:%ds"),
                 m_BT, 4-doubleLen(m_BT), sign,
                 m_RINT);
     }
@@ -100,12 +100,12 @@ void i2cScreen::outputScreen() {
     div_t time = div(m_roastDuration, 60);
     const char sign = m_isCelsius ? 'C':'F';
     const char *stateStr = roastStatesStr(m_roastStatus);
-    snprintf(m_outputScreenBuffer[0], sizeof(m_outputScreenBuffer[0]),
-            "FAN:%d%-*c%-*s",
+    snprintf_P(m_outputScreenBuffer[0], sizeof(m_outputScreenBuffer[0]),
+            PSTR("FAN:%d%-*c%-*s"),
             m_fanDutyCycle, 5-doubleLen(m_fanDutyCycle), '%',
             11 - static_cast<int>(strlen(stateStr)), stateStr);
-    snprintf(m_outputScreenBuffer[1], sizeof(m_outputScreenBuffer[1]),
-            "SP:%.0f%-*cD:%02d:%02d",
+    snprintf_P(m_outputScreenBuffer[1], sizeof(m_outputScreenBuffer[1]),
+            PSTR("SP:%.0f%-*cD:%02d:%02d"),
             m_SP, 6-doubleLen(m_SP), sign,
             time.quot, time.rem);
 #ifndef I2C_SPEED_HACK
