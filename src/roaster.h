@@ -38,7 +38,7 @@ class Roaster {
         unsigned int m_RORSampling = DEFAULT_ROR_SAMPLING;
         unsigned int m_RORInterval = DEFAULT_ROR_SAMPLING;
         unsigned int m_fanDutyCycle = 0;
-        unsigned int m_pidActivationThreshold = 150;
+        unsigned int m_pidActivationThreshold = 128;
         unsigned long m_roastStart, m_nextROR = 0;
         double *mp_RORSource;
         double m_ET, m_BT, m_SP, m_SV, m_kP, m_kI, m_kD = 0;
