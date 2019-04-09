@@ -45,12 +45,12 @@ class Roaster {
         bool m_autoFan = false;
         // Conservative setting to avoid fire hazards
         unsigned short m_enforceFanWithHeater = 10;
+        void initPID();
         void updateROR();
     public:
         Roaster();
         Roaster(unsigned int RORInterval);
         ~Roaster();
-        void initPID();
         void setPIDTunings(double kp, double ki, double kd);
         void setPIDThreshold(unsigned int threshold);
         void startRoast();
@@ -63,9 +63,9 @@ class Roaster {
         double getSP();
         void setSP(double newSP);
         double getSV();
-        unsigned int getFan();
         void setRoastingMinFanValue(unsigned int value);
         void setFan(unsigned int newFan);
+        unsigned int getFan();
         void setAutoFanState(bool state);
         bool isHeaterEnabled();
         unsigned long getRoastTime();
