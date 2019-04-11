@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "roaster.h"
 
-Roaster::Roaster() : m_kP(7), m_kI(0), m_kD(19) {
+Roaster::Roaster() : m_kP(10), m_kI(0.4), m_kD(15) {
     mp_RORSource = &m_BT;
     mp_RORCalculator = new RORCalculator(DEFAULT_ROR_SAMPLING/1000);
     initPID();
@@ -36,7 +36,7 @@ void Roaster::initPID() {
         delete mp_pid;
         mp_pid = nullptr;
     }
-    mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, DIRECT);
+    mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, P_ON_E, DIRECT);
 }
 
 void Roaster::setPIDTunings(double kp, double ki, double kd) {
