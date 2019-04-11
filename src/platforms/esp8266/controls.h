@@ -24,10 +24,12 @@ limitations under the License.
 #include "main.h"
 
 #ifdef USE_HEATER_PWM
+#ifdef USE_ZC_SSR
 #include <core_esp8266_waveform.h>
 
 #define HEATER_PWM_FREQ 10
 #define FREQ_PERIOD 1E6/HEATER_PWM_FREQ
+#endif
 #endif
 
 #define DUTY_STEP PWMRANGE/100

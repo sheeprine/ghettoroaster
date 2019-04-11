@@ -19,5 +19,9 @@ limitations under the License.
 
 // Number of time per second to refresh the roast state
 #define REFRESH_RATE 10
+// Heater is controlled using a Zero Cross SSR
+#define USE_ZC_SSR
+// Heater is controlled using a Random Fire SSR
+// #define USE_RF_SSR
 
 #endif

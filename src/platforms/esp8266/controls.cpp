@@ -27,11 +27,17 @@ void setHeater(bool enabled) {
     digitalWrite(HEATER_PIN, enabled);
 }
 #else
+#ifdef USE_ZC_SSR
 void setHeaterPWM(unsigned int val) {
     // FIXME(sheeprine): Assume that PID max is 255
     unsigned long highTime = val*FREQ_PERIOD/255;
     startWaveform(HEATER_PIN, highTime, FREQ_PERIOD-highTime, 0);
 }
+#else
+void setHeaterPWM(unsigned int val) {
+    analogWrite(HEATER_PIN, dutyCycle*DUTY_STEP);
+}
+#endif
 #endif
 
 void initControls() {
