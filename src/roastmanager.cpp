@@ -116,14 +116,21 @@ void RoastManager::refreshScreen() {
 }
 
 void RoastManager::tick() {
-    if (millis() >= m_nextRefresh) {
-        m_nextRefresh = millis() + m_refreshInterval;
+    unsigned long tickStart = millis();
+    if (tickStart >= m_nextRefresh) {
+        m_nextRefresh = tickStart + m_refreshInterval;
         if (p_envTemp) {
             m_roasterState.setET(p_envTemp());
         }
         if (p_beanTemp) {
             m_roasterState.setBT(p_beanTemp());
         }
+        m_refreshDuration = millis() - tickStart;
+    }
+    else {
+        // NOTE(sheeprine): Avoid making the loop faster when we are not
+        // reading temperatures so that we don't mess the PID refresh frequency
+        delay(m_refreshDuration);
     }
     if (p_setpointTemp) {
         m_roasterState.setSP(p_setpointTemp());

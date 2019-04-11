@@ -26,6 +26,7 @@ class RoastManager {
     private:
         unsigned int m_refreshInterval = 150;
         unsigned long m_nextRefresh = 0;
+        unsigned long m_refreshDuration = 0;
         Roaster m_roasterState;
         Screen *mp_screen = nullptr;
         bool m_autoFan = false;
