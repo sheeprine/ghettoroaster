@@ -19,6 +19,9 @@ limitations under the License.
 
 #define USE_HEATER_PWM
 
+#define USE_MAX6675
+//#define USE_MAX31855
+
 // nodemcu pin mapping
 //  A0 -> Usable
 //  D0 -> Usable (/!\ HIGH at boot)

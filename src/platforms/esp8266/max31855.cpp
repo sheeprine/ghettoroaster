@@ -15,40 +15,46 @@ limitations under the License.
 */
 
 #include "platforms/esp8266/config.h"
-#include "platforms/esp8266/max6675.h"
+#include "platforms/esp8266/max31855.h"
 #include "main.h"
 
-#ifdef USE_MAX6675
+#ifdef USE_MAX31855
 
 extern RoastManager g_roast;
 
-MAX6675 TC_ET;
-MAX6675 TC_BT;
+Adafruit_MAX31855 *TC_ET = nullptr;
+Adafruit_MAX31855 *TC_BT = nullptr;
+
+double getATTemp() {
+    return TC_ET->readInternal();
+}
 
 double getETTemp() {
-    return TC_ET.readCelsius();
+    return TC_ET->readCelsius();
 }
 
 double getBTTemp() {
-    return TC_BT.readCelsius();
+    return TC_BT->readCelsius();
 }
 
-void initMAX6675() {
+void initmax31855() {
     SPI.begin();
-    TC_ET.begin(TC_ET_PIN);
-    TC_BT.begin(TC_BT_PIN);
+    TC_ET = new Adafruit_MAX31855(TC_ET_PIN);
+    TC_BT = new Adafruit_MAX31855(TC_BT_PIN);
+    TC_ET->begin();
+    TC_BT->begin();
 }
 
-void addMAX6675Callbacks() {
-    // MAX6675 refresh between temperature readings is around 170 and 200ms
-    g_roast.setRefreshInterval(180);
+void addmax31855Callbacks() {
+    // MAX31855 can go as low as 100ms between temperature readings
+    g_roast.setRefreshInterval(100);
     g_roast.addEnvTempFunc(getETTemp);
     g_roast.addBeanTempFunc(getBTTemp);
 }
 
-void register_max6675() {
-    registerInitCallback(addMAX6675Callbacks);
-    registerInitCallback(initMAX6675);
+void register_max31855() {
+    registerInitCallback(addmax31855Callbacks);
+    registerInitCallback(initmax31855);
 }
 
 #endif

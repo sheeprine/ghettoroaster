@@ -14,24 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef ESP8266_MAX6675_H
-#define ESP8266_MAX6675_H
+#ifndef ESP8266_MAX31855_H
+#define ESP8266_MAX31855_H
 
 #include "platforms/esp8266/config.h"
 
-#ifdef USE_MAX6675
+#ifdef USE_MAX31855
 
-#include <max6675.h>
+#include <Adafruit_MAX31855.h>
 #include <SPI.h>
 #include "roastmanager.h"
 #include "main.h"
 
+double getATTemp();
 double getETTemp();
 double getBTTemp();
 
-void initMAX6675();
-void addMAX6675Callbacks();
-void register_max6675();
+void initmax31855();
+void addmax31855Callbacks();
+void register_max31855();
 
 #endif
 #endif
