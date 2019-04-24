@@ -38,6 +38,8 @@ void initMAX6675() {
 }
 
 void addMAX6675Callbacks() {
+    // MAX6675 refresh between temperature readings is around 170 and 200ms
+    g_roast.setRefreshInterval(180);
     g_roast.addEnvTempFunc(getETTemp);
     g_roast.addBeanTempFunc(getBTTemp);
 }
