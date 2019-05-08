@@ -31,6 +31,7 @@ class RoastManager {
         Screen *mp_screen = nullptr;
         bool m_autoFan = false;
         bool m_useDetailedROR = true;
+        bool pidATuneLState = false;
         unsigned int m_autoCoolValue = 100;
         bool(*p_PIDSetup)() = nullptr;
         double(*p_PIDKp)() = nullptr;

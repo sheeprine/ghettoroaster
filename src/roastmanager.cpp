@@ -151,8 +151,14 @@ void RoastManager::tick() {
             m_roasterState.setPIDTunings(p_PIDKp(), p_PIDKi(), p_PIDKd(), pidMode);
         }
     }
-    if (p_PIDATune && p_PIDATune()) {
-        m_roasterState.startPidAutotune();
+    if (p_PIDATune) {
+        if (p_PIDATune() && !pidATuneLState) {
+            pidATuneLState = true;
+            m_roasterState.startPidAutotune();
+        }
+        else if (!p_PIDATune()) {
+            pidATuneLState = false;
+        }
     }
     updateRoasterState();
     m_roasterState.update();
