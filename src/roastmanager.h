@@ -37,6 +37,7 @@ class RoastManager {
         double(*p_PIDKi)() = nullptr;
         double(*p_PIDKd)() = nullptr;
         bool(*p_PIDMode)() = nullptr;
+        bool(*p_PIDATune)() = nullptr;
         double(*p_envTemp)() = nullptr;
         double(*p_beanTemp)() = nullptr;
         double(*p_setpointTemp)() = nullptr;
@@ -55,6 +56,7 @@ class RoastManager {
         void addPIDKiFunc(double(*func)());
         void addPIDKdFunc(double(*func)());
         void addPIDModeFunc(bool(*func)());
+        void addPIDATuneFunc(bool(*func)());
         void addEnvTempFunc(double(*func)());
         void addBeanTempFunc(double(*func)());
         void addSetpointTempFunc(double(*func)());

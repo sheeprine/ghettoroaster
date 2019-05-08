@@ -57,5 +57,6 @@ limitations under the License.
 #define PID_KI_ADDR         402
 #define PID_KD_ADDR         403
 #define PID_PONM_ADDR       404
+#define PID_ATUNE_ADDR      405
 
 #endif

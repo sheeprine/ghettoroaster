@@ -57,6 +57,10 @@ bool mbToPIDMode() {
     return mb.Coil(PID_PONM_ADDR);
 }
 
+bool mbToPIDATune() {
+    return mb.Coil(PID_ATUNE_ADDR);
+}
+
 void initModbus() {
     // NOTE(sheeprine): The modbus library is always trying connect to WiFi and
     // will not check for errors.
@@ -75,6 +79,7 @@ void initModbus() {
     mb.addHreg(PID_KI_ADDR);
     mb.addHreg(PID_KD_ADDR);
     mb.addCoil(PID_PONM_ADDR, false);
+    mb.addCoil(PID_ATUNE_ADDR, false);
 }
 
 void addModbusCallbacks() {
@@ -87,6 +92,7 @@ void addModbusCallbacks() {
     g_roast.addPIDKiFunc(mbToPIDKi);
     g_roast.addPIDKdFunc(mbToPIDKd);
     g_roast.addPIDModeFunc(mbToPIDMode);
+    g_roast.addPIDATuneFunc(mbToPIDATune);
 }
 
 void populateModbusRegisters() {

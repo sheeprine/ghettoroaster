@@ -19,6 +19,7 @@ limitations under the License.
 
 #include <Arduino.h>
 #include <PID_v1.h>
+#include <PID_AutoTune_v0.h>
 #include "ror_calculator.h"
 
 #define DEFAULT_ROR_SAMPLING 1000
@@ -34,6 +35,7 @@ enum RoastParams {
 class Roaster {
     private:
         PID *mp_pid = nullptr;
+        PID_ATune *mp_pidATune = nullptr;
         RORCalculator *mp_RORCalculator = nullptr;
         unsigned int m_RORSampling = DEFAULT_ROR_SAMPLING;
         unsigned int m_RORInterval = DEFAULT_ROR_SAMPLING;
@@ -53,6 +55,9 @@ class Roaster {
         ~Roaster();
         void setPIDTunings(double kp, double ki, double kd, int mode);
         void setPIDThreshold(unsigned int threshold);
+        void startPidAutotune();
+        void refreshPidAutotune();
+        void stopPidAutotune();
         void startRoast();
         void stopRoast();
         bool isRoasting();

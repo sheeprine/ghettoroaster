@@ -36,6 +36,10 @@ void RoastManager::addPIDModeFunc(bool(*func)()) {
     p_PIDMode = func;
 }
 
+void RoastManager::addPIDATuneFunc(bool(*func)()) {
+    p_PIDATune = func;
+}
+
 void RoastManager::addEnvTempFunc(double(*func)()) {
     p_envTemp = func;
 }
@@ -140,12 +144,15 @@ void RoastManager::tick() {
         m_roasterState.setSP(p_setpointTemp());
     }
     if (p_PIDSetup && p_PIDSetup()) {
-        if (p_PIDKp && p_PIDKi && p_PIDKd) {
+        if (p_PIDKp && p_PIDKi && p_PIDKd && !(p_PIDATune && p_PIDATune())) {
             int pidMode = P_ON_E;
             if (p_PIDMode && p_PIDMode())
                 pidMode = P_ON_M;
             m_roasterState.setPIDTunings(p_PIDKp(), p_PIDKi(), p_PIDKd(), pidMode);
         }
+    }
+    if (p_PIDATune && p_PIDATune()) {
+        m_roasterState.startPidAutotune();
     }
     updateRoasterState();
     m_roasterState.update();
