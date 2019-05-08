@@ -16,8 +16,8 @@ limitations under the License.
 
 #include "roastmanager.h"
 
-void RoastManager::addPIDDebugFunc(bool(*func)()) {
-    p_PIDDebug = func;
+void RoastManager::addPIDSetupFunc(bool(*func)()) {
+    p_PIDSetup = func;
 }
 
 void RoastManager::addPIDKpFunc(double(*func)()) {

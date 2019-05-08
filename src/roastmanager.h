@@ -32,7 +32,7 @@ class RoastManager {
         bool m_autoFan = false;
         bool m_useDetailedROR = true;
         unsigned int m_autoCoolValue = 100;
-        bool(*p_PIDDebug)() = nullptr;
+        bool(*p_PIDSetup)() = nullptr;
         double(*p_PIDKp)() = nullptr;
         double(*p_PIDKi)() = nullptr;
         double(*p_PIDKd)() = nullptr;
@@ -49,7 +49,7 @@ class RoastManager {
         void refreshScreen();
     public:
         RoastManager() {};
-        void addPIDDebugFunc(bool(*func)());
+        void addPIDSetupFunc(bool(*func)());
         void addPIDKpFunc(double(*func)());
         void addPIDKiFunc(double(*func)());
         void addPIDKdFunc(double(*func)());

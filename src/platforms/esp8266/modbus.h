@@ -24,7 +24,7 @@ limitations under the License.
 bool mbToRoastEnabled();
 double mbToSP();
 unsigned int mbToFan();
-bool mbToPIDDebug();
+bool mbToPIDSetup();
 double mbToPIDKp();
 double mbToPIDKi();
 double mbToPIDKd();

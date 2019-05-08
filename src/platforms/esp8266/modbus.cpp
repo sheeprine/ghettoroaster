@@ -37,8 +37,8 @@ bool mbToAutoFanEnabled() {
     return mb.Coil(AUTOFAN_ENABLE_ADDR);
 }
 
-bool mbToPIDDebug() {
-    return mb.Coil(PID_DEBUG_ADDR);
+bool mbToPIDSetup() {
+    return mb.Coil(PID_SETUP_ADDR);
 }
 
 double mbToPIDKp() {
@@ -66,7 +66,7 @@ void initModbus() {
     mb.addHreg(ROAST_SP_ADDR);
     mb.addCoil(AUTOFAN_ENABLE_ADDR, false);
     mb.addHreg(ROAST_FAN_ADDR);
-    mb.addCoil(PID_DEBUG_ADDR, false);
+    mb.addCoil(PID_SETUP_ADDR, false);
     mb.addHreg(PID_KP_ADDR);
     mb.addHreg(PID_KI_ADDR);
     mb.addHreg(PID_KD_ADDR);
@@ -77,7 +77,7 @@ void addModbusCallbacks() {
     g_roast.addFanDutyFunc(mbToFan);
     g_roast.addGetAutoFanState(mbToAutoFanEnabled);
     g_roast.addRoastEnabledFunc(mbToRoastEnabled);
-    g_roast.addPIDDebugFunc(mbToPIDDebug);
+    g_roast.addPIDSetupFunc(mbToPIDSetup);
     g_roast.addPIDKpFunc(mbToPIDKp);
     g_roast.addPIDKiFunc(mbToPIDKi);
     g_roast.addPIDKdFunc(mbToPIDKd);
