@@ -51,7 +51,7 @@ class Roaster {
         Roaster();
         Roaster(unsigned int RORInterval);
         ~Roaster();
-        void setPIDTunings(double kp, double ki, double kd);
+        void setPIDTunings(double kp, double ki, double kd, int mode);
         void setPIDThreshold(unsigned int threshold);
         void startRoast();
         void stopRoast();

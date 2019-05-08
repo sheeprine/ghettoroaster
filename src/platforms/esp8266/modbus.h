@@ -28,6 +28,7 @@ bool mbToPIDSetup();
 double mbToPIDKp();
 double mbToPIDKi();
 double mbToPIDKd();
+bool mbToPIDMode();
 
 void initModbus();
 void addModbusCallbacks();

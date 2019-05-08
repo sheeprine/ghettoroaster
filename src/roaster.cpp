@@ -39,8 +39,8 @@ void Roaster::initPID() {
     mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, P_ON_E, DIRECT);
 }
 
-void Roaster::setPIDTunings(double kp, double ki, double kd) {
-    mp_pid->SetTunings(kp, ki, kd);
+void Roaster::setPIDTunings(double kp, double ki, double kd, int mode) {
+    mp_pid->SetTunings(kp, ki, kd, mode);
 }
 
 void Roaster::setPIDThreshold(unsigned int threshold) {

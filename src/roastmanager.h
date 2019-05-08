@@ -36,6 +36,7 @@ class RoastManager {
         double(*p_PIDKp)() = nullptr;
         double(*p_PIDKi)() = nullptr;
         double(*p_PIDKd)() = nullptr;
+        bool(*p_PIDMode)() = nullptr;
         double(*p_envTemp)() = nullptr;
         double(*p_beanTemp)() = nullptr;
         double(*p_setpointTemp)() = nullptr;
@@ -53,6 +54,7 @@ class RoastManager {
         void addPIDKpFunc(double(*func)());
         void addPIDKiFunc(double(*func)());
         void addPIDKdFunc(double(*func)());
+        void addPIDModeFunc(bool(*func)());
         void addEnvTempFunc(double(*func)());
         void addBeanTempFunc(double(*func)());
         void addSetpointTempFunc(double(*func)());
