@@ -216,7 +216,11 @@ void Roaster::setRORSource(RoastParams sourceType) {
 }
 
 void Roaster::update() {
-    mp_pid->Compute();
-    refreshPidAutotune();
+    if (mp_pidATune) {
+        refreshPidAutotune();
+    }
+    else {
+        mp_pid->Compute();
+    }
     updateROR();
 }
