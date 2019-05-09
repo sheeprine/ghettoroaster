@@ -50,7 +50,12 @@ void Roaster::setPIDThreshold(unsigned int threshold) {
 void Roaster::startPidAutotune() {
     if (!mp_pidATune) {
         mp_pidATune = new PID_ATune(&m_BT, &m_SV);
+        // NOTE(sheeprine): Tune for full P I D
         mp_pidATune->SetControlType(1);
+        // NOTE(sheeprine): Increase SV by 10% steps
+        mp_pidATune->SetOutputSet(25);
+        mp_pidATune->SetLoopbackSec(30);
+        mp_pidATune->SetNoiseBand(1);
     }
 }
 
