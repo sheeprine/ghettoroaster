@@ -122,7 +122,7 @@ void RoastManager::refreshScreen() {
     if (pidATuneLState) {
         mp_screen->setRoastStatus(roastStates(TUN));
     }
-    else (m_roasterState.isRoasting()) {
+    else if (m_roasterState.isRoasting()) {
         if (m_roasterState.getBT() > 135) {
             mp_screen->setRoastStatus(roastStates(roastStates(MAILL)));
         }
@@ -179,7 +179,7 @@ void RoastManager::tick() {
     if (p_getAutoFan) {
         m_roasterState.setAutoFanState(p_getAutoFan());
     }
-    if (p_fanDuty and !m_autoFan) {
+    if (p_fanDuty && !m_autoFan) {
         m_roasterState.setFan(p_fanDuty());
     }
     if (p_setFanDuty) {

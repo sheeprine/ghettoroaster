@@ -53,8 +53,8 @@ void Roaster::startPidAutotune() {
         // NOTE(sheeprine): Tune for full P I D
         mp_pidATune->SetControlType(1);
         // NOTE(sheeprine): Increase SV by 10% steps
-        mp_pidATune->SetOutputSet(25);
-        mp_pidATune->SetLoopbackSec(30);
+        mp_pidATune->SetOutputStep(25);
+        mp_pidATune->SetLookbackSec(30);
         mp_pidATune->SetNoiseBand(1);
     }
 }
