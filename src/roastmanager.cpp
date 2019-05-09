@@ -123,7 +123,15 @@ void RoastManager::refreshScreen() {
         mp_screen->setRoastStatus(roastStates(TUN));
     }
     else (m_roasterState.isRoasting()) {
-        mp_screen->setRoastStatus(roastStates(roastStates(DRY)));
+        if (m_roasterState.getBT() > 135) {
+            mp_screen->setRoastStatus(roastStates(roastStates(MAILL)));
+        }
+        else if (m_roasterState.getBT() > 190) {
+            mp_screen->setRoastStatus(roastStates(roastStates(FIN)));
+        }
+        else {
+            mp_screen->setRoastStatus(roastStates(roastStates(DRY)));
+        }
     }
     mp_screen->refresh();
 }
