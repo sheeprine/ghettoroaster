@@ -27,6 +27,7 @@ enum roastStates {
     DROP,
     MAILL,
     FIN,
+    TUN,
 };
 
 class Screen {

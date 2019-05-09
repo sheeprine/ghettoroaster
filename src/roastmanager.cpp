@@ -119,7 +119,12 @@ void RoastManager::refreshScreen() {
         mp_screen->setRINT(m_roasterState.getRORInterval());
     }
     mp_screen->setDuration(m_roasterState.getRoastTime());
-    mp_screen->setRoastStatus(roastStates(m_roasterState.isRoasting()));
+    if (pidATuneLState) {
+        mp_screen->setRoastStatus(roastStates(TUN));
+    }
+    else (m_roasterState.isRoasting()) {
+        mp_screen->setRoastStatus(roastStates(roastStates(DRY)));
+    }
     mp_screen->refresh();
 }
 

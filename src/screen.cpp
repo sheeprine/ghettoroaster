@@ -31,6 +31,8 @@ const char* Screen::roastStatesStr(roastStates state) {
             return "FIN";
         case DROP:
             return "DROP";
+        case TUN:
+            return "TUNE";
         default:
             return "STOP";
     }
