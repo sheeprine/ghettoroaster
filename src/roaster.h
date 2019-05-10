@@ -48,6 +48,7 @@ class Roaster {
         // Conservative setting to avoid fire hazards
         unsigned short m_enforceFanWithHeater = 10;
         void initPID();
+        void refreshPIDAutotune();
         void updateROR();
     public:
         Roaster();
@@ -55,9 +56,8 @@ class Roaster {
         ~Roaster();
         void setPIDTunings(double kp, double ki, double kd, int mode);
         void setPIDThreshold(unsigned int threshold);
-        void startPidAutotune();
-        void refreshPidAutotune();
-        void stopPidAutotune();
+        void startPIDAutotune();
+        void stopPIDAutotune();
         void startRoast();
         void stopRoast();
         bool isRoasting();
