@@ -24,4 +24,7 @@ limitations under the License.
 // Heater is controlled using a Random Fire SSR
 // #define USE_RF_SSR
 
+#define USE_MAX6675
+//#define USE_MAX31855
+
 #endif

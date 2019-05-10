@@ -17,7 +17,7 @@ limitations under the License.
 #ifndef ESP8266_MAX6675_H
 #define ESP8266_MAX6675_H
 
-#include "platforms/esp8266/config.h"
+#include "config.h"
 
 #ifdef USE_MAX6675
 
@@ -31,7 +31,7 @@ double getBTTemp();
 
 void initMAX6675();
 void addMAX6675Callbacks();
-void register_max6675();
+void register_temp();
 
 #endif
 #endif

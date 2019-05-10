@@ -42,7 +42,7 @@ void registerScreen(Screen *screen) {
 
 void setup() {
     register_i2c_lcd();
-    register_max6675();
+    register_temp();
     register_modbus();
     register_controls();
     register_wifi();

@@ -21,11 +21,11 @@ limitations under the License.
 #include "config.h"
 #include "roastmanager.h"
 #include "screen.h"
-#include "platforms/esp8266/i2c_lcd.h"
-#include "platforms/esp8266/modbus.h"
-#include "platforms/esp8266/max6675.h"
-#include "platforms/esp8266/controls.h"
-#include "platforms/esp8266/wifi.h"
+#include "common/display/i2c_lcd.h"
+#include "platforms/espressif/common/modbus.h"
+#include "common/temp/max6675.h"
+#include "platforms/espressif/common/controls.h"
+#include "platforms/espressif/common/wifi.h"
 
 void registerInitCallback(void (*func)());
 void registerUpdateCallback(void (*func)());

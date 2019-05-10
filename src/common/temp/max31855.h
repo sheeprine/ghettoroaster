@@ -14,10 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include "platforms/esp8266/wifi.h"
+#ifndef ESP8266_MAX31855_H
+#define ESP8266_MAX31855_H
 
-WiFiManager wManager;
+#include "config.h"
 
-void register_wifi() {
-    wManager.autoConnect("GhettoRoaster", "gimmecoffee");
-}
+#ifdef USE_MAX31855
+
+#include <Adafruit_MAX31855.h>
+#include <SPI.h>
+#include "roastmanager.h"
+#include "main.h"
+
+double getATTemp();
+double getETTemp();
+double getBTTemp();
+
+void initmax31855();
+void addmax31855Callbacks();
+void register_temp();
+
+#endif
+#endif

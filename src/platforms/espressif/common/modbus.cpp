@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include "platforms/esp8266/config.h"
-#include "platforms/esp8266/modbus.h"
+#include "platforms/espressif/common/config.h"
+#include "platforms/espressif/common/modbus.h"
 
 extern RoastManager g_roast;
 

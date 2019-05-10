@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include "platforms/esp8266/i2c_lcd.h"
+#include "common/display/i2c_lcd.h"
 
 extern RoastManager g_roast;
 

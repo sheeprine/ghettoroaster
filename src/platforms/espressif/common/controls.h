@@ -14,25 +14,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef ESP8266_MAX31855_H
-#define ESP8266_MAX31855_H
+#ifndef ESP8266_CONTROLS_H
+#define ESP8266_CONTROLS_H
 
-#include "platforms/esp8266/config.h"
-
-#ifdef USE_MAX31855
-
-#include <Adafruit_MAX31855.h>
-#include <SPI.h>
+#include <Arduino.h>
+#include "platforms/espressif/common/config.h"
 #include "roastmanager.h"
+#include "config.h"
 #include "main.h"
 
-double getATTemp();
-double getETTemp();
-double getBTTemp();
+#ifdef USE_HEATER_PWM
+#ifdef USE_ZC_SSR
+#include <core_esp8266_waveform.h>
 
-void initmax31855();
-void addmax31855Callbacks();
-void register_max31855();
-
+#define HEATER_PWM_FREQ 10
+#define FREQ_PERIOD 1E6/HEATER_PWM_FREQ
 #endif
+#endif
+
+#define DUTY_STEP PWMRANGE/100
+
+void setFan(unsigned int dutyCycle);
+#ifndef USE_HEATER_PWM
+void setHeater(bool enabled);
+#else
+void setHeaterPWM(unsigned int val);
+#endif
+void register_controls();
+
 #endif
