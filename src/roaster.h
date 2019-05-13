@@ -41,10 +41,10 @@ class Roaster {
         unsigned int m_RORInterval = DEFAULT_ROR_SAMPLING;
         unsigned int m_fanDutyCycle = 0;
         unsigned int m_pidActivationThreshold = 128;
-        unsigned long m_roastStart, m_nextROR = 0;
+        unsigned long m_roastStart, m_nextROR, m_warmupDone = 0;
         double *mp_RORSource;
         double m_ET, m_BT, m_SP, m_SV, m_kP, m_kI, m_kD = 0;
-        bool m_autoFan = false;
+        bool m_autoFan, m_autoTune = false;
         // Conservative setting to avoid fire hazards
         unsigned short m_enforceFanWithHeater = 10;
         void initPID();
@@ -56,7 +56,7 @@ class Roaster {
         ~Roaster();
         void setPIDTunings(double kp, double ki, double kd, int mode);
         void setPIDThreshold(unsigned int threshold);
-        void startPIDAutotune();
+        bool startPIDAutotune();
         void stopPIDAutotune();
         void startRoast();
         void stopRoast();

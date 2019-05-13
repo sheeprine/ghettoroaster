@@ -47,16 +47,26 @@ void Roaster::setPIDThreshold(unsigned int threshold) {
     m_pidActivationThreshold = threshold;
 }
 
-void Roaster::startPIDAutotune() {
-    if (!mp_pidATune) {
+bool Roaster::startPIDAutotune() {
+    unsigned long now = millis();
+    if (!m_warmupDone && !m_autoTune) {
+        Serial.println("Starting PID Auto Tune, warming up.");
+        m_SV = 125;
+        m_warmupDone = now + 10000;
+        m_autoTune = true;
+    }
+    if (!mp_pidATune && m_warmupDone <= now) {
+        Serial.println("Starting PID Auto Tune.");
         mp_pidATune = new PID_ATune(&m_BT, &m_SV);
         // NOTE(sheeprine): Tune for full P I D
         mp_pidATune->SetControlType(1);
         // NOTE(sheeprine): Increase SV by 10% steps
-        mp_pidATune->SetOutputStep(25);
+        mp_pidATune->SetOutputStep(100);
         mp_pidATune->SetLookbackSec(30);
         mp_pidATune->SetNoiseBand(1);
+        return true;
     }
+    return false;
 }
 
 void Roaster::refreshPIDAutotune() {
@@ -75,10 +85,16 @@ void Roaster::refreshPIDAutotune() {
                 mp_pidATune->GetKd());
             stopPIDAutotune();
         }
+        else {
+            Serial.println("PID Auto Tune: Run.");
+        }
     }
 }
 
 void Roaster::stopPIDAutotune() {
+    Serial.println("Stopping PID Auto Tune.");
+    m_warmupDone = 0;
+    m_autoTune = false;
     if (mp_pidATune) {
         mp_pidATune->Cancel();
         delete mp_pidATune;
@@ -216,7 +232,7 @@ void Roaster::setRORSource(RoastParams sourceType) {
 }
 
 void Roaster::update() {
-    if (mp_pidATune) {
+    if (mp_pidATune && m_autoTune) {
         refreshPIDAutotune();
     }
     else {
