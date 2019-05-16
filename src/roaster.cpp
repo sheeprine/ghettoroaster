@@ -219,12 +219,6 @@ void Roaster::setRORSource(RoastParams sourceType) {
         case ET:
             mp_RORSource = &m_ET;
             break;
-        case SP:
-            mp_RORSource = &m_SP;
-            break;
-        case SV:
-            mp_RORSource = &m_SV;
-            break;
         default:
             mp_RORSource = &m_BT;
     }
