@@ -166,7 +166,8 @@ void RoastManager::tick() {
     }
     if (p_PIDATune) {
         if (p_PIDATune() && !pidATuneLState) {
-            pidATuneLState = m_roasterState.startPIDAutotune();
+            pidATuneLState = true;
+            m_roasterState.startPIDAutotune();
         }
         else if (!p_PIDATune() && pidATuneLState) {
             m_roasterState.stopPIDAutotune();

@@ -18,8 +18,7 @@ limitations under the License.
 #define ROASTER_H
 
 #include <Arduino.h>
-#include <PID_v1.h>
-#include <PID_AutoTune_v0.h>
+#include "pid.h"
 #include "ror_calculator.h"
 
 #define DEFAULT_ROR_SAMPLING 1000
@@ -34,21 +33,18 @@ enum RoastParams {
 
 class Roaster {
     private:
-        PID *mp_pid = nullptr;
-        PID_ATune *mp_pidATune = nullptr;
+        GhettoPID *mp_pid = nullptr;
         RORCalculator *mp_RORCalculator = nullptr;
         unsigned int m_RORSampling = DEFAULT_ROR_SAMPLING;
         unsigned int m_RORInterval = DEFAULT_ROR_SAMPLING;
         unsigned int m_fanDutyCycle = 0;
-        unsigned int m_pidActivationThreshold = 128;
-        unsigned long m_roastStart, m_nextROR, m_warmupDone = 0;
+        unsigned long m_roastStart, m_nextROR = 0;
         double *mp_RORSource;
-        double m_ET, m_BT, m_SP, m_SV, m_kP, m_kI, m_kD = 0;
-        bool m_autoFan, m_autoTune = false;
+        double m_ET, m_BT, m_kP, m_kI, m_kD = 0;
+        bool m_autoFan = false;
         // Conservative setting to avoid fire hazards
         unsigned short m_enforceFanWithHeater = 10;
         void initPID();
-        void refreshPIDAutotune();
         void updateROR();
     public:
         Roaster();
@@ -56,7 +52,7 @@ class Roaster {
         ~Roaster();
         void setPIDTunings(double kp, double ki, double kd, int mode);
         void setPIDThreshold(unsigned int threshold);
-        bool startPIDAutotune();
+        void startPIDAutotune();
         void stopPIDAutotune();
         void startRoast();
         void stopRoast();

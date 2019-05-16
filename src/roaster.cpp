@@ -36,81 +36,33 @@ void Roaster::initPID() {
         delete mp_pid;
         mp_pid = nullptr;
     }
-    mp_pid = new PID(&m_BT, &m_SV, &m_SP, m_kP, m_kI, m_kD, P_ON_E, DIRECT);
+    mp_pid = new GhettoPID(m_kP, m_kI, m_kD);
 }
 
 void Roaster::setPIDTunings(double kp, double ki, double kd, int mode) {
-    mp_pid->SetTunings(kp, ki, kd, mode);
+    mp_pid->setTunings(kp, ki, kd, mode);
 }
 
 void Roaster::setPIDThreshold(unsigned int threshold) {
-    m_pidActivationThreshold = threshold;
+    mp_pid->setThreshold(threshold);
 }
 
-bool Roaster::startPIDAutotune() {
-    unsigned long now = millis();
-    if (!m_warmupDone && !m_autoTune) {
-        Serial.println("Starting PID Auto Tune, warming up.");
-        m_SV = 125;
-        m_warmupDone = now + 10000;
-        m_autoTune = true;
-    }
-    if (!mp_pidATune && m_warmupDone <= now) {
-        Serial.println("Starting PID Auto Tune.");
-        mp_pidATune = new PID_ATune(&m_BT, &m_SV);
-        // NOTE(sheeprine): Tune for full P I D
-        mp_pidATune->SetControlType(1);
-        // NOTE(sheeprine): Increase SV by 10% steps
-        mp_pidATune->SetOutputStep(100);
-        mp_pidATune->SetLookbackSec(30);
-        mp_pidATune->SetNoiseBand(1);
-        return true;
-    }
-    return false;
-}
-
-void Roaster::refreshPIDAutotune() {
-    if (mp_pidATune) {
-        if (mp_pidATune->Runtime()) {
-            Serial.println("PID AutoTune done.");
-            Serial.print("Kp: ");
-            Serial.println(mp_pidATune->GetKp());
-            Serial.print("Ki: ");
-            Serial.println(mp_pidATune->GetKi());
-            Serial.print("Kd: ");
-            Serial.println(mp_pidATune->GetKd());
-            mp_pid->SetTunings(
-                mp_pidATune->GetKp(),
-                mp_pidATune->GetKi(),
-                mp_pidATune->GetKd());
-            stopPIDAutotune();
-        }
-        else {
-            Serial.println("PID Auto Tune: Run.");
-        }
-    }
+void Roaster::startPIDAutotune() {
+    mp_pid->startAutotune();
 }
 
 void Roaster::stopPIDAutotune() {
-    Serial.println("Stopping PID Auto Tune.");
-    m_warmupDone = 0;
-    m_autoTune = false;
-    if (mp_pidATune) {
-        mp_pidATune->Cancel();
-        delete mp_pidATune;
-        mp_pidATune = nullptr;
-    }
+    mp_pid->cancelAutotune();
 }
 
 void Roaster::startRoast() {
     m_roastStart = millis();
     m_nextROR = m_roastStart + m_RORSampling;
-    mp_pid->SetMode(AUTOMATIC);
+    mp_pid->enable();
 }
 
 void Roaster::stopRoast() {
-    mp_pid->SetMode(MANUAL);
-    m_SV = 0;
+    mp_pid->disable();
     m_roastStart = 0;
     m_nextROR = 0;
     mp_RORCalculator->reset();
@@ -137,15 +89,15 @@ void Roaster::setBT(double newBT) {
 }
 
 double Roaster::getSP() {
-    return m_SP;
+    return mp_pid->getSetPoint();
 }
 
 void Roaster::setSP(double newSP) {
-    m_SP = newSP;
+    mp_pid->setSetPoint(newSP);
 }
 
 double Roaster::getSV() {
-    return m_SV;
+    return mp_pid->getOutput();
 }
 
 void Roaster::setRoastingMinFanValue(unsigned int value) {
@@ -181,10 +133,7 @@ void Roaster::setAutoFanState(bool state) {
 }
 
 bool Roaster::isHeaterEnabled() {
-    // FIXME(sheeprine): Using a threshold on the PID output as PWM is
-    // inefficient on Zero Cross SSR. We should implement something more robust
-    // and customizable.
-    return m_SV > m_pidActivationThreshold;
+    return mp_pid->isOutputActivated();
 }
 
 unsigned long Roaster::getRoastTime() {
@@ -226,11 +175,7 @@ void Roaster::setRORSource(RoastParams sourceType) {
 }
 
 void Roaster::update() {
-    if (mp_pidATune && m_autoTune) {
-        refreshPIDAutotune();
-    }
-    else {
-        mp_pid->Compute();
-    }
+    mp_pid->setInput(m_BT);
+    mp_pid->update();
     updateROR();
 }
