@@ -56,8 +56,8 @@ void GhettoPID::setThreshold(unsigned int threshold) {
 bool GhettoPID::isTempRaising() {
   if (m_warmupTempCheck < ATUNE_WARMUP_LOOP_WAIT)
     return ++m_warmupTempCheck;
-  // NOTE(sheeprine): If temperature moved less than 1C between checks then
-  // consider it flat.
+  // NOTE(sheeprine): If temperature moved less than ATUNE_WARMUP_THRESHOLD
+  // between checks then consider it flat.
   bool tempChanged = m_lastIN < (m_IN - ATUNE_WARMUP_THRESHOLD);
   m_warmupTempCheck = 0;
   m_lastIN = m_IN;
@@ -71,6 +71,7 @@ void GhettoPID::warmup() {
   m_OUT = m_resolution/2;
   m_warmupTimeoutTime = millis() + m_warmupTimeout;
   m_autoTune = true;
+  m_lastIN = m_IN;
 }
 
 void GhettoPID::startAutotune() {
