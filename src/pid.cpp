@@ -75,14 +75,15 @@ void GhettoPID::warmup() {
 }
 
 void GhettoPID::startAutotune() {
+  // Disable PID before starting auto tuning
+  disable();
   if (!m_autoTune)
     warmup();
   if (!mp_pidATune && !m_warmupTimeoutTime) {
     mp_pidATune = new PID_ATune(&m_IN, &m_OUT);
     // NOTE(sheeprine): Tune for full P I D
     mp_pidATune->SetControlType(1);
-    // NOTE(sheeprine): Modulate output by 10% steps
-    mp_pidATune->SetOutputStep(m_resolution/10);
+    mp_pidATune->SetOutputStep(m_resolution/ATUNE_STEP_RATIO);
     mp_pidATune->SetLookbackSec(30);
     mp_pidATune->SetNoiseBand(1);
   }
@@ -112,6 +113,7 @@ void GhettoPID::cancelAutotune() {
     delete mp_pidATune;
     mp_pidATune = nullptr;
   }
+  m_OUT = 0;
 }
 
 void GhettoPID::enable() {

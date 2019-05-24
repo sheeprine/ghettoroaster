@@ -22,8 +22,9 @@ limitations under the License.
 #define DEFAULT_MODE P_ON_E
 #define DEFAULT_WARMUP_TIMEOUT_S 30
 #define DEFAULT_RESOLUTION 255
-#define ATUNE_WARMUP_LOOP_WAIT 5
-#define ATUNE_WARMUP_THRESHOLD 2
+#define ATUNE_WARMUP_LOOP_WAIT 100
+#define ATUNE_WARMUP_THRESHOLD 1/2
+#define ATUNE_STEP_RATIO 5
 
 class GhettoPID {
    private:
