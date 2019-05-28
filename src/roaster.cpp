@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "roaster.h"
 
-Roaster::Roaster() : m_kP(5.3), m_kI(0.21), m_kD(34) {
+Roaster::Roaster() : m_kP(5.8), m_kI(0.13), m_kD(69) {
     mp_RORSource = &m_BT;
     mp_RORCalculator = new RORCalculator(DEFAULT_ROR_SAMPLING/1000);
     initPID();
