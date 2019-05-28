@@ -76,7 +76,7 @@ void GhettoPID::warmup() {
 
 void GhettoPID::startAutotune() {
   // Disable PID before starting auto tuning
-  disable();
+  mp_pid->SetMode(MANUAL);
   if (!m_autoTune)
     warmup();
   if (!mp_pidATune && !m_warmupTimeoutTime) {
