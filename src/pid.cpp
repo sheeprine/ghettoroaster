@@ -84,7 +84,7 @@ void GhettoPID::startAutotune() {
     // NOTE(sheeprine): Tune for full P I D
     mp_pidATune->SetControlType(1);
     mp_pidATune->SetOutputStep(m_resolution/ATUNE_STEP_RATIO);
-    mp_pidATune->SetLookbackSec(30);
+    mp_pidATune->SetLookbackSec(90);
     mp_pidATune->SetNoiseBand(1);
   }
 }
